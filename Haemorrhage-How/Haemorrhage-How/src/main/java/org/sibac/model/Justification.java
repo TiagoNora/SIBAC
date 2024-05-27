@@ -1,4 +1,4 @@
-package org.engcia.model;
+package org.sibac.model;
 
 import java.util.ArrayList;
 import java.util.List;

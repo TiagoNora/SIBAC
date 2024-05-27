@@ -1,4 +1,4 @@
-package org.engcia.view;
+package org.sibac.view;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,8 +7,8 @@ import java.util.Collection;
 
 import org.kie.api.runtime.ClassObjectFilter;
 
-import org.engcia.haemorrhage.Haemorrhage;
-import org.engcia.model.Evidence;
+import org.sibac.haemorrhage.Haemorrhage;
+import org.sibac.model.Evidence;
 
 public class UI {
     private static BufferedReader br;

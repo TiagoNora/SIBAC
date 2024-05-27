@@ -1,4 +1,4 @@
-package org.engcia.model;
+package org.sibac.model;
 
 public class Fact {
     static private int lastId = 0;

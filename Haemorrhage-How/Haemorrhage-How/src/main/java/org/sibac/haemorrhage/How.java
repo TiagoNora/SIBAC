@@ -1,10 +1,10 @@
-package org.engcia.haemorrhage;
+package org.sibac.haemorrhage;
 
 import java.util.Map;
 
-import org.engcia.model.Fact;
-import org.engcia.model.Hypothesis;
-import org.engcia.model.Justification;
+import org.sibac.model.Fact;
+import org.sibac.model.Hypothesis;
+import org.sibac.model.Justification;
 
 public class How {
     private Map<Integer, Justification> justifications;

@@ -13,14 +13,14 @@
  * limitations under the License.
 */
 
-package org.engcia;
+package org.sibac;
 
-import org.engcia.model.Evidence;
-import org.engcia.model.Hypothesis;
-import org.engcia.model.Conclusion;
-import org.engcia.model.Fact;
+import org.sibac.model.Evidence;
+import org.sibac.model.Hypothesis;
+import org.sibac.model.Conclusion;
+import org.sibac.model.Fact;
 
-import function org.engcia.view.UI.answer;
+import function org.sibac.view.UI.answer;
 
 query "Conclusions"
 	$conclusion : Conclusion()

@@ -1,6 +1,6 @@
-package org.engcia.model;
+package org.sibac.model;
 
-import org.engcia.haemorrhage.Haemorrhage;
+import org.sibac.haemorrhage.Haemorrhage;
 
 public class Conclusion extends Fact{
     public static final String OTORRHAGIA = "Otorrhagia";
