@@ -3,17 +3,11 @@ package org.sibac.model;
 import org.sibac.haemorrhage.Haemorrhage;
 
 public class Conclusion extends Fact{
-    public static final String OTORRHAGIA = "Otorrhagia";
-    public static final String SKULL_FRACTURE = "Skull fracture";
-    public static final String EPISTAXE = "Epistaxe";
-    public static final String HEMATHESE = "Hemathese";
-    public static final String MOUTH_HAEMORRHAGE = "Mouth haemorrhage";
-    public static final String METRORRHAGIA = "Metrorrhagia";
-    public static final String HEMATURIA = "Hematuria";
-    public static final String MELENA = "Melena";
-    public static final String RECTAL_BLEEDING = "Rectal bleeding";
-    public static final String UNKNOWN = "Consult the doctor!";
-
+    public static final String BEBER_AGUA = "Deve beber água";
+    public static final String TOMAR_MEDICAMENTO = "Deve tomar medicamento";
+    public static final String REALIZAR_CIRURGIA = "Deve realizar cirurgia";
+    public static final String NAO_HA_TRATAMENTO = "Não hã lugar a tratamento";
+    public static final String TRATAMENTO_HBP = "Terapia com farmacos|Redução do volume prostatico através de cirurgia|Redução do volume prostatico por vapor de água|Aquabalação";
     private String description;
 
     public Conclusion(String description) {

@@ -1,19 +1,21 @@
 package org.sibac.model;
 
-public class Evidence extends Fact{
-    public static final String BLOOD_EAR = "There is blood in the ear";
-    public static final String EARACHE = "Do you have earache";
-    public static final String DEAFNESS = "Do you have deafness";
-    public static final String CEREBROSPINAL = "Is there crebrospinal fluid spill";
-    public static final String HEADACHE = "Do you have headache";
-    public static final String BLOOD_NOSE = "Is there blood in the nose";
-    public static final String BLOOD_MOUTH = "Is there blood in the mouth";
-    public static final String BLOOD_BROWN = "Is the blood colour dark brown";
-    public static final String VOMITING = "Is there vomiting";
-    public static final String BLOOD_VAGINA = "Is there blood in the vagina";
-    public static final String BLOOD_PENIS = "Is there blood in the penis";
-    public static final String BLOOD_ANUS = "Is there blood in the anus";
-    public static final String BLOOD_COFFEE = "Has the blood in the anus the apperance of coffee grounds";
+public class Evidence<T> extends Fact{
+    public static final String CISTOSCOPIA_FACT = "A cistoscopia acusa algo";
+    public static final String CISTOSCOPIA_PSA = "O nível de PSA é alto (>10)";
+    public static final String CISTOSCOPIA_TOMOGRAFIA = "Foi detetado alguma anomalia na tomografia";
+    public static final String CISTOSCOPIA_BIOPSIA = "Foi detatado alguma anomalia na biopsia";
+    public static final String EXPECTATIVA_UTENTE = "Se o tratamento for realizado a expectativa do utente aumenta em 10 anos";
+    public static final String UROTAC_FACT = "O urotac acusa algo";
+    public static final String UROTAC_RESULT = "Qual o resultado do exame (Pedras|HBP|CancroVias|CancroProstata)";
+    public static final String UROTAC_PEDRAS = "Qual é o tamanho das pedras (mm)";
+    public static final String UROTAC_HBP_ULTRASSONOGRAFIA = "Qual é volume da prostata (ml)";
+    public static final String IDADE_PACIENTE = "Qual é a idade do paciente";
+    public static final String CONDICAO_PACIENTE = "Qual é a condição do paciente";
+    public static final String CANCRO_RISCO = "Como quer avaliar o risco";
+    public static final String CANCRO_PSA = "Qual é o valor do PSA";
+    public static final String CANCRO_GG = "Qual é o valor do GG";
+    public static final String CANCRO_CT2 = "Qual é o tipo de CT2 (b|c|d)";
 
     private String evidence;
     private String value;

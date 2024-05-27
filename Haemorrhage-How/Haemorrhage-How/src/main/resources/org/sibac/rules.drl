@@ -28,11 +28,138 @@ end
 
 rule "r1"
 	when
-		eval(answer(Evidence.BLOOD_EAR, "yes" ))
+		eval(answer(Evidence.CISTOSCOPIA_FACT, "sim" ))
 	then
-		Hypothesis h = new Hypothesis("haemorrhage", "upper type");
+		Hypothesis h = new Hypothesis("Analisar dado", "PSA");
 		insert(h);
 end
+
+rule "r2"
+	when
+	    Hypothesis( description == "Analisar dado", value == "PSA")
+		eval(answer(Evidence.CISTOSCOPIA_PSA, "sim" ))
+	then
+		Hypothesis h = new Hypothesis("Realizar exame", "Tomografia");
+		insert(h);
+end
+
+rule "r3"
+	when
+	    Hypothesis( description == "Realizar exame", value == "Tomografia")
+		eval(answer(Evidence.CISTOSCOPIA_TOMOGRAFIA, "sim" ))
+	then
+		Hypothesis h = new Hypothesis("Realizar exame", "Biopsia");
+		insert(h);
+end
+
+rule "r4"
+	when
+	    Hypothesis( description == "Realizar exame", value == "Biopsia")
+		eval(answer(Evidence.CISTOSCOPIA_BIOPSIA, "sim" ))
+	then
+		Hypothesis h = new Hypothesis("Doença", "Presença de cancro da prostata");
+		insert(h);
+end
+
+rule "r5"
+	when
+		eval(answer(Evidence.UROTAC_FACT, "sim" ))
+	then
+		Hypothesis h = new Hypothesis("Doença", "Presença de doença");
+		insert(h);
+end
+
+rule "r6"
+	when
+	    Hypothesis( description == "Doença", value == "Presença de doença")
+		eval(answer(Evidence.UROTAC_RESULT, "pedras" ))
+	then
+		Hypothesis h = new Hypothesis("Doença", "Presença de pedras nos rins");
+		insert(h);
+end
+
+rule "r7"
+	when
+	    Hypothesis( description == "Doença", value == "Presença de pedras nos rins")
+		eval(answer(Evidence.UROTAC_PEDRAS, "pequeno" ))
+	then
+		Conclusion c = new Conclusion(Conclusion.BEBER_AGUA);
+		insert(c);
+end
+
+rule "r8"
+	when
+	    Hypothesis( description == "Doença", value == "Presença de pedras nos rins")
+		eval(answer(Evidence.UROTAC_PEDRAS, "medio" ))
+	then
+		Conclusion c = new Conclusion(Conclusion.TOMAR_MEDICAMENTO);
+		insert(c);
+end
+
+rule "r9"
+	when
+	    Hypothesis( description == "Doença", value == "Presença de pedras nos rins")
+		eval(answer(Evidence.UROTAC_PEDRAS, "alto" ))
+	then
+		Conclusion c = new Conclusion(Conclusion.REALIZAR_CIRURGIA);
+		insert(c);
+end
+
+rule "r10"
+	when
+	    Hypothesis( description == "Doença", value == "Presença de doença")
+		eval(answer(Evidence.UROTAC_RESULT, "hbp" ))
+	then
+		Hypothesis h = new Hypothesis("Doença", "Presença de HBP");
+		insert(h);
+end
+
+rule "r11"
+	when
+	    Hypothesis( description == "Doença", value == "Presença de HBP")
+		eval(answer(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA, "anormal" ))
+	then
+		Hypothesis h = new Hypothesis("Doença", "Presença de HBP anormal");
+		insert(h);
+end
+
+rule "r12"
+	when
+	    Hypothesis( description == "Doença", value == "Presença de HBP")
+		eval(answer(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA, "normal" ))
+	then
+		Hypothesis h = new Hypothesis("Doença", "Presença de HBP normal");
+		insert(h);
+end
+
+rule "r13"
+	when
+	    Hypothesis( description == "Doença", value == "Presença de HBP anormal")
+	then
+		Conclusion c = new Conclusion(Conclusion.TRATAMENTO_HBP);
+		insert(c);
+end
+
+rule "r14"
+	when
+	    Hypothesis( description == "Doença", value == "Presença de HBP normal")
+	then
+		Conclusion c = new Conclusion(Conclusion.NAO_HA_TRATAMENTO);
+		insert(c);
+end
+
+rule "r15"
+	when
+	    // Falta a logica difusa
+	    eval(answer(Evidence.CANCRO_RISCO, "intermedio"))
+	then
+		Conclusion c = new Conclusion(Conclusion.NAO_HA_TRATAMENTO);
+		insert(c);
+end
+
+
+// Acaba aqui
+
 
 rule "r2"
 	when
