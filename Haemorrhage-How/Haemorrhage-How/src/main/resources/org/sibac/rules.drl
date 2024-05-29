@@ -57,8 +57,8 @@ rule "r4"
 	    Hypothesis( description == "Realizar exame", value == "Biopsia")
 		eval(answer(Evidence.CISTOSCOPIA_BIOPSIA, "sim" ))
 	then
-		Hypothesis h = new Hypothesis("Doença", "Presença de cancro da prostata");
-		insert(h);
+		Conclusion c = new Conclusion(Conclusion.CANCRO_PROSTATA);
+		insert(C);
 end
 
 rule "r5"
@@ -74,13 +74,13 @@ rule "r6"
 	    Hypothesis( description == "Doença", value == "Presença de doença")
 		eval(answer(Evidence.UROTAC_RESULT, "pedras" ))
 	then
-		Hypothesis h = new Hypothesis("Doença", "Presença de pedras nos rins");
-		insert(h);
+		Conclusion c = new Conclusion(Conclusion.PEDRAS_RINS);
+		insert(c);
 end
 
 rule "r7"
 	when
-	    Hypothesis( description == "Doença", value == "Presença de pedras nos rins")
+	    Conclusion(Conclusion.PEDRAS_RINS)
 		eval(answer(Evidence.UROTAC_PEDRAS, "pequeno" ))
 	then
 		Conclusion c = new Conclusion(Conclusion.BEBER_AGUA);
@@ -89,7 +89,7 @@ end
 
 rule "r8"
 	when
-	    Hypothesis( description == "Doença", value == "Presença de pedras nos rins")
+	    Conclusion(Conclusion.PEDRAS_RINS)
 		eval(answer(Evidence.UROTAC_PEDRAS, "medio" ))
 	then
 		Conclusion c = new Conclusion(Conclusion.TOMAR_MEDICAMENTO);
@@ -98,7 +98,7 @@ end
 
 rule "r9"
 	when
-	    Hypothesis( description == "Doença", value == "Presença de pedras nos rins")
+	    Conclusion(Conclusion.PEDRAS_RINS)
 		eval(answer(Evidence.UROTAC_PEDRAS, "alto" ))
 	then
 		Conclusion c = new Conclusion(Conclusion.REALIZAR_CIRURGIA);
@@ -119,8 +119,8 @@ rule "r11"
 	    Hypothesis( description == "Doença", value == "Presença de HBP")
 		eval(answer(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA, "anormal" ))
 	then
-		Hypothesis h = new Hypothesis("Doença", "Presença de HBP anormal");
-		insert(h);
+		Conclusion c = new Conclusion(Conclusion.HBP_ANORMAL);
+		insert(c);
 end
 
 rule "r12"
@@ -128,13 +128,13 @@ rule "r12"
 	    Hypothesis( description == "Doença", value == "Presença de HBP")
 		eval(answer(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA, "normal" ))
 	then
-		Hypothesis h = new Hypothesis("Doença", "Presença de HBP normal");
-		insert(h);
+		Conclusion c = new Conclusion(Conclusion.HBP_ANORMAL);
+		insert(c);
 end
 
 rule "r13"
 	when
-	    Hypothesis( description == "Doença", value == "Presença de HBP anormal")
+	    Conclusion(Conclusion.HBP_ANORMAL)
 	then
 		Conclusion c = new Conclusion(Conclusion.TRATAMENTO_HBP);
 		insert(c);
@@ -142,7 +142,7 @@ end
 
 rule "r14"
 	when
-	    Hypothesis( description == "Doença", value == "Presença de HBP normal")
+	    Conclusion(Conclusion.HBP_NORMAL)
 	then
 		Conclusion c = new Conclusion(Conclusion.NAO_HA_TRATAMENTO);
 		insert(c);
@@ -154,114 +154,6 @@ rule "r15"
 	    eval(answer(Evidence.CANCRO_RISCO, "intermedio"))
 	then
 		Conclusion c = new Conclusion(Conclusion.NAO_HA_TRATAMENTO);
-		insert(c);
-end
-
-
-// Acaba aqui
-
-
-rule "r2"
-	when
-		eval(answer(Evidence.BLOOD_EAR, "no" ))
-	then
-		Hypothesis h = new Hypothesis("haemorrhage", "lower type");
-		insert(h);
-end
-
-rule "r3"
-	when
-		Hypothesis( description == "haemorrhage", value == "upper type")
-		eval(answer(Evidence.EARACHE, "yes"))
-	then
-		Conclusion c = new Conclusion(Conclusion.OTORRHAGIA);
-		insert(c);
-end
-
-rule "r4"
-	when
-		Hypothesis( description == "haemorrhage", value == "upper type")
-		eval(answer(Evidence.DEAFNESS, "yes"))
-	then
-		Conclusion c = new Conclusion(Conclusion.OTORRHAGIA);
-		insert(c);
-end
-
-rule "r5"
-	when
-		Hypothesis( description == "haemorrhage", value == "upper type")
-		eval(answer(Evidence.CEREBROSPINAL, "yes"))
-	then
-		Conclusion c = new Conclusion(Conclusion.SKULL_FRACTURE);
-		insert(c);
-end
-
-rule "r6"
-	when
-		Hypothesis( description == "haemorrhage", value == "lower type")
-		eval(answer(Evidence.BLOOD_NOSE, "yes"))
-	then
-		Conclusion c = new Conclusion(Conclusion.EPISTAXE);
-		insert(c);
-end
-
-rule "r7"
-	when
-		Hypothesis( description == "haemorrhage", value == "lower type")
-		eval(answer(Evidence.BLOOD_MOUTH, "yes"))
-		eval(answer(Evidence.BLOOD_BROWN, "yes"))
-		eval(answer(Evidence.VOMITING, "yes"))
-	then
-		Conclusion c = new Conclusion(Conclusion.HEMATHESE);
-		insert(c);
-end
-
-rule "r8"
-	when
-		Hypothesis( description == "haemorrhage", value == "lower type")
-		eval(answer(Evidence.BLOOD_MOUTH, "yes"))
-		eval(answer(Evidence.BLOOD_BROWN, "no"))
-		eval(answer(Evidence.VOMITING, "no"))
-	then
-		Conclusion c = new Conclusion(Conclusion.MOUTH_HAEMORRHAGE);
-		insert(c);
-end
-
-rule "r9"
-	when
-		Hypothesis( description == "haemorrhage", value == "lower type")
-		eval(answer(Evidence.BLOOD_VAGINA, "yes"))
-	then
-		Conclusion c = new Conclusion(Conclusion.METRORRHAGIA);
-		insert(c);
-end
-
-rule "r10"
-	when
-		Hypothesis( description == "haemorrhage", value == "lower type")
-		eval(answer(Evidence.BLOOD_PENIS, "yes"))
-	then
-		Conclusion c = new Conclusion(Conclusion.HEMATURIA);
-		insert(c);
-end
-
-rule "r11"
-	when
-		Hypothesis( description == "haemorrhage", value == "lower type")
-		eval(answer(Evidence.BLOOD_ANUS, "yes"))
-		eval(answer(Evidence.BLOOD_COFFEE, "yes"))
-	then
-		Conclusion c = new Conclusion(Conclusion.MELENA);
-		insert(c);
-end
-
-rule "r12"
-	when
-		Hypothesis( description == "haemorrhage", value == "lower type")
-		eval(answer(Evidence.BLOOD_ANUS, "yes"))
-		eval(answer(Evidence.BLOOD_COFFEE, "no"))
-	then
-		Conclusion c = new Conclusion(Conclusion.RECTAL_BLEEDING);
 		insert(c);
 end
 
