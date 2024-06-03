@@ -58,7 +58,7 @@ rule "r4"
 		eval(answer(Evidence.CISTOSCOPIA_BIOPSIA, "sim" ))
 	then
 		Conclusion c = new Conclusion(Conclusion.CANCRO_PROSTATA);
-		insert(C);
+		insert(c);
 end
 
 rule "r5"
@@ -70,40 +70,46 @@ rule "r5"
 end
 
 rule "r6"
-	when
-	    Hypothesis( description == "Doença", value == "Presença de doença")
-		eval(answer(Evidence.UROTAC_RESULT, "pedras" ))
-	then
-		Conclusion c = new Conclusion(Conclusion.PEDRAS_RINS);
-		insert(c);
+    salience 10
+    when
+        Hypothesis(description == "Doença", value == "Presença de doença")
+        eval(answer(Evidence.UROTAC_RESULT, "pedras"))
+    then
+        Conclusion c = new Conclusion(Conclusion.PEDRAS_RINS);
+        insert(c);
 end
 
 rule "r7"
-	when
-	    Conclusion(Conclusion.PEDRAS_RINS)
-		eval(answer(Evidence.UROTAC_PEDRAS, "pequeno" ))
-	then
-		Conclusion c = new Conclusion(Conclusion.BEBER_AGUA);
-		insert(c);
+    salience 5
+    when
+        Conclusion(description == Conclusion.PEDRAS_RINS)
+        eval(answer(Evidence.UROTAC_PEDRAS, "pequeno"))
+    then
+        Conclusion c = new Conclusion(Conclusion.BEBER_AGUA);
+        insert(c);
 end
 
 rule "r8"
-	when
-	    Conclusion(Conclusion.PEDRAS_RINS)
-		eval(answer(Evidence.UROTAC_PEDRAS, "medio" ))
-	then
-		Conclusion c = new Conclusion(Conclusion.TOMAR_MEDICAMENTO);
-		insert(c);
+    salience 5
+    when
+        Conclusion(description == Conclusion.PEDRAS_RINS)
+        eval(answer(Evidence.UROTAC_PEDRAS, "medio"))
+    then
+        Conclusion c = new Conclusion(Conclusion.TOMAR_MEDICAMENTO);
+        insert(c);
 end
 
 rule "r9"
-	when
-	    Conclusion(Conclusion.PEDRAS_RINS)
-		eval(answer(Evidence.UROTAC_PEDRAS, "alto" ))
-	then
-		Conclusion c = new Conclusion(Conclusion.REALIZAR_CIRURGIA);
-		insert(c);
+    salience 5
+    when
+        Conclusion(description == Conclusion.PEDRAS_RINS)
+        eval(answer(Evidence.UROTAC_PEDRAS, "alto"))
+    then
+        Conclusion c = new Conclusion(Conclusion.REALIZAR_CIRURGIA);
+        insert(c);
 end
+
+
 
 rule "r10"
 	when
@@ -121,6 +127,8 @@ rule "r11"
 	then
 		Conclusion c = new Conclusion(Conclusion.HBP_ANORMAL);
 		insert(c);
+		Conclusion c1 = new Conclusion(Conclusion.TRATAMENTO_HBP);
+        insert(c1);
 end
 
 rule "r12"
@@ -128,34 +136,177 @@ rule "r12"
 	    Hypothesis( description == "Doença", value == "Presença de HBP")
 		eval(answer(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA, "normal" ))
 	then
-		Conclusion c = new Conclusion(Conclusion.HBP_ANORMAL);
+		Conclusion c = new Conclusion(Conclusion.HBP_NORMAL);
 		insert(c);
+		Conclusion c1 = new Conclusion(Conclusion.NAO_HA_TRATAMENTO);
+        insert(c1);
 end
 
-rule "r13"
+
+/*
+  rule "r15"
+  	when
+  	    // Falta a logica difusa
+  	    eval(answer(Evidence.CANCRO_RISCO, "intermedio"))
+  	then
+  		Conclusion c = new Conclusion(Conclusion.NAO_HA_TRATAMENTO);
+  		insert(c);
+  end
+  */
+rule "r16"
 	when
-	    Conclusion(Conclusion.HBP_ANORMAL)
+	    Hypothesis( description == "Analisar dado", value == "PSA")
+		eval(answer(Evidence.CISTOSCOPIA_PSA, "nao" ))
 	then
-		Conclusion c = new Conclusion(Conclusion.TRATAMENTO_HBP);
+		Conclusion c = new Conclusion(Conclusion.NAO_HA_TRATAMENTO);
 		insert(c);
 end
 
-rule "r14"
+rule "r17"
 	when
-	    Conclusion(Conclusion.HBP_NORMAL)
+	    Hypothesis( description == "Realizar exame", value == "Tomografia")
+		eval(answer(Evidence.CISTOSCOPIA_TOMOGRAFIA, "nao" ))
 	then
 		Conclusion c = new Conclusion(Conclusion.NAO_HA_TRATAMENTO);
 		insert(c);
 end
 
-rule "r15"
+rule "r18"
 	when
-	    // Falta a logica difusa
-	    eval(answer(Evidence.CANCRO_RISCO, "intermedio"))
+	    Hypothesis( description == "Realizar exame", value == "Biopsia")
+		eval(answer(Evidence.CISTOSCOPIA_BIOPSIA, "nao" ))
 	then
 		Conclusion c = new Conclusion(Conclusion.NAO_HA_TRATAMENTO);
 		insert(c);
 end
+
+rule "r19"
+	when
+		eval(answer(Evidence.CISTOSCOPIA_FACT, "nao" ))
+		eval(answer(Evidence.UROTAC_FACT, "nao"))
+	then
+		Hypothesis h = new Hypothesis("Realizar Exame", "Ecografia bsic prostatic");
+		insert(h);
+end
+
+rule "r20"
+	when
+		Hypothesis(description == "Realizar Exame", value == "Ecografia bsic prostatic")
+		eval(answer(Evidence.ECOGRAFIA_BASIC, "nao"))
+
+	then
+
+	    Conclusion c = new Conclusion(Conclusion.NAO_HA_TRATAMENTO);
+        insert(c);
+
+
+end
+
+
+rule "r21"
+	when
+		Hypothesis(description == "Realizar Exame", value == "Ecografia bsic prostatic")
+		eval(answer(Evidence.ECOGRAFIA_BASIC, "sim"))
+
+	then
+
+	    Hypothesis h = new Hypothesis("Doença", "Qual o tipo");
+	    insert(h);
+end
+
+
+rule "r22"
+	when
+		Hypothesis(description == "Doença", value == "Qual o tipo")
+		eval(answer(Evidence.ECOGRAFIA_BASIC_SIM, "cancro"))
+
+	then
+
+	    Conclusion c = new Conclusion(Conclusion.CANCRO_PROSTATA);
+	    insert(c);
+end
+
+rule "r23"
+	when
+		Hypothesis(description == "Doença", value == "Qual o tipo")
+		eval(answer(Evidence.ECOGRAFIA_BASIC_SIM, "hbp"))
+
+	then
+
+	    Hypothesis h = new Hypothesis("Doença", "Presença de HBP");
+        insert(h);
+end
+
+
+rule "r24"
+	when
+	    Hypothesis( description == "Doença", value == "Presença de doença")
+		eval(answer(Evidence.UROTAC_RESULT, "cancrovias" ))
+	then
+		Conclusion c = new Conclusion(Conclusion.CANCRO_VIAS);
+		insert(c);
+end
+
+rule "r25"
+        when
+            Conclusion(description == Conclusion.CANCRO_VIAS)
+            eval(answer(Evidence.EXPECTATIVA_UTENTE, "sim"))
+
+      then
+            Hypothesis h = new Hypothesis("Analisar paciente", "idade");
+            insert(h);
+
+end
+
+rule "r26"
+        when
+            Conclusion(description == Conclusion.CANCRO_VIAS)
+            eval(answer(Evidence.EXPECTATIVA_UTENTE, "nao"))
+
+      then
+            Conclusion c = new Conclusion(Conclusion.VIGILANCIA_ATIVA);
+            insert(c);
+
+end
+
+rule "r27"
+	when
+	    Hypothesis( description == "Doença", value == "Presença de doença")
+		eval(answer(Evidence.UROTAC_RESULT, "cancro" ))
+	then
+		Conclusion c = new Conclusion(Conclusion.CANCRO_PROSTATA);
+		insert(c);
+end
+
+
+rule "r28"
+        when
+            Conclusion(description == Conclusion.CANCRO_PROSTATA)
+            eval(answer(Evidence.EXPECTATIVA_UTENTE, "nao"))
+
+      then
+            Conclusion c = new Conclusion(Conclusion.VIGILANCIA_ATIVA);
+            insert(c);
+
+end
+
+
+rule "r29"
+        when
+            Conclusion(description == Conclusion.CANCRO_PROSTATA)
+            eval(answer(Evidence.EXPECTATIVA_UTENTE, "sim"))
+
+      then
+           Hypothesis h = new Hypothesis("Analisar paciente", "idade");
+                       insert(h);
+
+end
+
+
+
+
+
+
 
 rule "unknown"
 	when

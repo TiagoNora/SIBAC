@@ -12,6 +12,12 @@ public class Conclusion extends Fact{
     public static final String PEDRAS_RINS = "Detetadas pedras nos rins";
     public static final String HBP_ANORMAL = "Presença de HBP anormal";
     public static final String HBP_NORMAL = "Presença de HBP normal";
+
+    public static final String CANCRO_VIAS = "Presença de cancro nas vias urinárias";
+
+    public static final String VIGILANCIA_ATIVA = "Paciente será posto em vigilancia";
+
+    public static final String UNKNOWN   = "Não sabemos";
     private String description;
 
     public Conclusion(String description) {
