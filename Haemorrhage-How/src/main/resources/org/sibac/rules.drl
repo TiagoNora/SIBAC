@@ -26,6 +26,9 @@ import function org.sibac.view.UI.answer
 import org.sibac.fcl.FuzzyLogicHelper
 import org.junit.validator.AnnotationsValidator;
 
+global org.sibac.model.Information info;
+
+
 query "Conclusions"
 	$conclusion : Conclusion()
 end

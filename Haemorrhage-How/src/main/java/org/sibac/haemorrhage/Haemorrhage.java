@@ -13,9 +13,12 @@ import org.kie.api.runtime.rule.ViewChangedEventListener;
 
 import org.sibac.model.Conclusion;
 import org.sibac.model.Justification;
+import org.sibac.model.Information;
 import org.sibac.model.Hypothesis;
 import org.sibac.view.UI;
 import org.sibac.model.UserInput;
+
+import java.util.ArrayList;
 
 import java.util.Scanner;
 
@@ -26,6 +29,8 @@ public class Haemorrhage {
     public static TrackingAgendaEventListener agendaEventListener;
     public static Map<Integer, Justification> justifications;
 
+
+
     public static final void main(String[] args) {
         UI.uiInit();
         runEngine();
@@ -33,6 +38,7 @@ public class Haemorrhage {
     }
 
     private static void runEngine() {
+        Information info = new Information();
         try {
             Haemorrhage.justifications = new TreeMap<Integer, Justification>();
 
@@ -43,6 +49,8 @@ public class Haemorrhage {
             Haemorrhage.KS = kSession;
             Haemorrhage.agendaEventListener = new TrackingAgendaEventListener();
             kSession.addEventListener(agendaEventListener);
+
+            kSession.setGlobal("info", info);
 
             // Prompt user for input
             Scanner scanner = new Scanner(System.in);
@@ -84,6 +92,18 @@ public class Haemorrhage {
             kSession.fireAllRules();
 
             query.close();
+
+            // Get the processed information
+            ArrayList<String> cistoFacts = info.getCisto_facts();
+            ArrayList<String> uroFacts = info.getUro_facts();
+
+// Process or display the information as needed
+            for (String fact : cistoFacts) {
+                System.out.println(fact);
+            }
+            for (String fact : uroFacts) {
+                System.out.println(fact);
+            }
 
         } catch (Throwable t) {
             t.printStackTrace();
