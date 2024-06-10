@@ -98,9 +98,16 @@ public class Haemorrhage {
             ArrayList<String> uroFacts = info.getUro_facts();
 
 // Process or display the information as needed
+            System.out.println("Factos da cistoscopia:");
             for (String fact : cistoFacts) {
                 System.out.println(fact);
             }
+
+
+            System.out.println("--------------------------");
+
+
+            System.out.println("Factos do urotac:");
             for (String fact : uroFacts) {
                 System.out.println(fact);
             }

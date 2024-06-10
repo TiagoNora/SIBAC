@@ -6,10 +6,15 @@ public class Information {
     private ArrayList<String> cisto_facts;
     private ArrayList<String> uro_facts;
 
+    private ArrayList<String> eco_facts;
+
 
     public Information(){
         this.cisto_facts = new ArrayList<>();
         this.uro_facts = new ArrayList<>();
+        this.eco_facts = new ArrayList<>();
+
+
     }
 
     public void addCistoInfo(String info){
@@ -20,6 +25,8 @@ public class Information {
         uro_facts.add(info);
     }
 
+    public void addEcoFact(String info){eco_facts.add(info);}
+
 
     public ArrayList<String> getCisto_facts(){
         return cisto_facts;
@@ -28,6 +35,8 @@ public class Information {
     public ArrayList<String> getUro_facts(){
         return uro_facts;
     }
+
+    public ArrayList<String> getEco_facts() {return eco_facts; }
 
     // public processInformation(){
     //     return explicacao;
