@@ -19,9 +19,9 @@ import org.sibac.model.Evidence;
 import org.sibac.model.Hypothesis;
 import org.sibac.model.Conclusion;
 import org.sibac.model.Fact;
-import net.sourceforge.jFuzzyLogic.FIS
 
-import function org.sibac.view.UI.answer;
+import function org.sibac.view.UI.answer
+import fcl.FuzzyLogicHelper;
 
 query "Conclusions"
 	$conclusion : Conclusion()
@@ -285,6 +285,23 @@ rule "r29"
     then
         Hypothesis h = new Hypothesis("Analisar paciente", "idade");
         insert(h);
+end
+
+rule "r30"
+    when
+        Hypothesis(description == "Analisar paciente", value == "idade")
+    then
+        eval(answer("",""))
+        eval(answer("",""))
+        FuzzyLogicHelper fuzzyHelper = new FuzzyLogicHelper("./fuzzy_rules.fcl");
+        double viability = fuzzyHelper.getViability(age, physicalCondition);
+        Conclusion c;
+        if (riskValue < 50) {
+            c = new Conclusion(Conclusion.);
+        } else {
+            c = new Conclusion(Conclusion.);
+        }
+        insert(c)
 end
 
 rule "unknown"
