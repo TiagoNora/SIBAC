@@ -29,6 +29,10 @@ public class Information {
         return uro_facts;
     }
 
+    // public processInformation(){
+    //     return explicacao;
+    // }
+
 
 
 

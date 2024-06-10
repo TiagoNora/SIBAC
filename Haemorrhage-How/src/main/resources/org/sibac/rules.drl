@@ -40,6 +40,7 @@ rule "r1"
     then
         Hypothesis h = new Hypothesis("Analisar dado", "PSA");
         insert(h);
+        info.addCistoInfo("Cistocopia acusou algo!");
 end
 
 // Analyze PSA with high result, perform Tomografia
@@ -50,6 +51,7 @@ rule "r2"
     then
         Hypothesis h = new Hypothesis("Realizar exame", "Tomografia");
         insert(h);
+        info.addCistoInfo("Níveis de PSA alto, Realizar tomografia!");
 end
 
 // Perform Tomografia with positive result, perform Biopsia
@@ -60,6 +62,7 @@ rule "r3"
     then
         Hypothesis h = new Hypothesis("Realizar exame", "Biopsia");
         insert(h);
+        info.addCistoInfo("Tomografia acusa algo! É necessário realizar uma biopsia!");
 end
 
 // Perform Biopsia with positive result, analyze patient expectations
@@ -70,6 +73,7 @@ rule "r4"
     then
         Hypothesis h = new Hypothesis("Analisar paciente expetativa", "expetativa");
         insert(h);
+        info.addCistoInfo("Biopsia revela a presença de cancro de próstata!");
         // Trigger rule 25
         Hypothesis h1 = new Hypothesis("Analisar paciente", "idade");
         insert(h1);
@@ -81,6 +85,7 @@ rule "r25"
         Hypothesis(description == "Analisar paciente expetativa", value == "expetativa")
         eval(answer(Evidence.EXPECTATIVA_UTENTE, "sim"))
     then
+    info.addCistoInfo("O tratamento fornece uma expetativa de pelo menos 10 anos!");
         Hypothesis h = new Hypothesis("Analisar paciente", "idade");
         insert(h);
 end
@@ -105,6 +110,7 @@ rule "r31"
     salience 10
     when
         Hypothesis(description == "Prosseguir tratamento", value == "apto")
+        info.addCistoInfo("Paciente está apto para tratamento!");
         eval(answer(Evidence.CANCRO_RISCO, "psa"))
     then
         Hypothesis h = new Hypothesis("Availar cancro", "psa");
@@ -115,8 +121,10 @@ rule "r39"
     salience 10
     when
         Hypothesis(description == "Prosseguir tratamento", value == "nao apto")
+        info.addCistoInfo("Paciente não está apto!");
     then
         Conclusion c = new Conclusion(Conclusion.PALEATIVO);
+        info.addCistoInfo("Paciente é submeitod a tratamentos paleativos");
         insert(c);
 end
 
@@ -128,6 +136,8 @@ rule "r32"
             eval(answer(Evidence.CANCRO_RISCO, "gg"))
         then
             Hypothesis h = new Hypothesis("Availar cancro", "gg");
+            info.addCistoInfo("O gg é usado para avaliar o risco associado ao cancro!");
+
             insert(h);
 end
 
@@ -137,6 +147,8 @@ rule "r33"
             eval(answer(Evidence.CANCRO_RISCO, "ct2"))
         then
             Hypothesis h = new Hypothesis("Verificar cancro", "ct2");
+            info.addCistoInfo("O ct2 é usado para avaliar o risco associado ao cancro!");
+
             insert(h);
 end
 
@@ -149,6 +161,8 @@ rule "r34"
     then
         // Asserting a new hypothesis to trigger rule "r5"
         Hypothesis h = new Hypothesis("avaliar urotac", "sim");
+        info.addCistoInfo("O valor do ct2 é o B, logo o paciente tem um cancro de risco médio!");
+
         insert(h);
 
          // adicionar a uma estrutura de dados para futuro processamento
