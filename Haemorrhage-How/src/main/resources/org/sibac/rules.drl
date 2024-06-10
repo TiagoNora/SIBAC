@@ -33,6 +33,22 @@ query "Conclusions"
 	$conclusion : Conclusion()
 end
 
+rule "initializeInfo"
+    when
+        // This rule should be triggered before any other rules are executed
+        eval(true)
+    then
+        if (info == null) {
+            info = new org.sibac.model.Information();
+        }
+        if (info.getFacts() == null) {
+            info.setFacts(new ArrayList<String>());
+        }
+        if (info.getActions() == null) {
+            info.setActions(new ArrayList<String>());
+        }
+end
+
 // Cistoscopia with something, analyze PSA
 rule "r1"
     when
