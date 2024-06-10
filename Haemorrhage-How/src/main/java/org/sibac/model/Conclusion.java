@@ -19,9 +19,12 @@ public class Conclusion extends Fact{
 
     public static final String UNKNOWN   = "Não sabemos";
 
-    public static final String APTO = "Paciente está APTO";
+    public static final String PALEATIVO = "Tratamento paleativo";
 
-    public static final String INAPTO = "Paciente não está APTO";
+    public static final String MEDIO = "Prostatectomia|Radioterapia + Deprivação hormonal (4 -6 meses)|Braquiterapia baixa-dosagem|Braquiterapia alta-dosagem + Deprivação hormonal (4 -6 meses) + radioterapia";
+    public static final String ALTO = "Prostatectomia|Radioterapia + Deprivação hormonal (2 -3 anos) + Braquiterapia alta-dosagem|Braquiterapia baixa-dosagem|Radioterapia + deprivação hormonal (3 anos)  +Abiraterone /2anos";
+
+    public static final String AVANCADO = "Prostatectomia|Radioterapia + deprivação hormonal (3 anos)  +Abiraterone /2anos|Radioterapia + deprivação hormonal (3 anos)  +Abiraterone /2anos|Braquiterapia baixa-dosagem";
     private String description;
 
     public Conclusion(String description) {
