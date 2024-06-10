@@ -15,13 +15,15 @@
 
 package org.sibac;
 
+import org.sibac.model.UserInput;
+
 import org.sibac.model.Evidence;
 import org.sibac.model.Hypothesis;
 import org.sibac.model.Conclusion;
 import org.sibac.model.Fact;
-import net.sourceforge.jFuzzyLogic.FIS
 
-import function org.sibac.view.UI.answer;
+import function org.sibac.view.UI.answer
+import org.sibac.fcl.FuzzyLogicHelper;
 
 query "Conclusions"
 	$conclusion : Conclusion()
@@ -58,8 +60,10 @@ rule "r4"
 	    Hypothesis( description == "Realizar exame", value == "Biopsia")
 		eval(answer(Evidence.CISTOSCOPIA_BIOPSIA, "sim" ))
 	then
-		Conclusion c = new Conclusion(Conclusion.CANCRO_PROSTATA);
-		insert(c);
+		//Conclusion c = new Conclusion(Conclusion.CANCRO_PROSTATA);
+		Hypothesis h = new Hypothesis("Analisar paciente", "idade");
+        insert(h);
+		//insert(c);
 end
 
 rule "r5"
@@ -286,6 +290,28 @@ rule "r29"
         Hypothesis h = new Hypothesis("Analisar paciente", "idade");
         insert(h);
 end
+
+rule "r30"
+    when
+        Hypothesis(description == "Analisar paciente", value == "idade")
+        $input : UserInput()
+    then
+        // Parse inputs from UserInput object
+        double age = Double.parseDouble($input.getAge());
+        double physicalCondition = Double.parseDouble($input.getPhysicalCondition());
+
+        // Create FuzzyLogicHelper instance
+        FuzzyLogicHelper fuzzyHelper = new FuzzyLogicHelper("src/main/java/org.sibac/fcl/health.fcl");
+
+        // Get viability based on age and physical condition
+        double viability = fuzzyHelper.getViability(age, physicalCondition);
+
+
+       Conclusion c = fuzzyHelper.returnconclusion(viability);
+
+        insert(c);
+end
+
 
 rule "unknown"
 	when

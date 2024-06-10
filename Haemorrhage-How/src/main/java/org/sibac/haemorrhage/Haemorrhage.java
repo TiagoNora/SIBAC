@@ -13,7 +13,12 @@ import org.kie.api.runtime.rule.ViewChangedEventListener;
 
 import org.sibac.model.Conclusion;
 import org.sibac.model.Justification;
+import org.sibac.model.Hypothesis;
 import org.sibac.view.UI;
+import org.sibac.model.UserInput;
+
+import java.util.Scanner;
+
 
 public class Haemorrhage {
     public static KieSession KS;
@@ -39,36 +44,44 @@ public class Haemorrhage {
             Haemorrhage.agendaEventListener = new TrackingAgendaEventListener();
             kSession.addEventListener(agendaEventListener);
 
+            // Prompt user for input
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter age:");
+            String age = scanner.nextLine();
+            System.out.println("Enter physical condition (0-10):");
+            String physicalCondition = scanner.nextLine();
+
+            // Create UserInput object and set the inputs
+            UserInput input = new UserInput(age, physicalCondition);
+
+            // Insert facts into session
+            kSession.insert(input);
+            kSession.insert(new Hypothesis("Analisar paciente", "idade"));
+
             // Query listener
             ViewChangedEventListener listener = new ViewChangedEventListener() {
                 @Override
-                public void rowDeleted(Row row) {
-                }
+                public void rowDeleted(Row row) {}
 
                 @Override
                 public void rowInserted(Row row) {
                     Conclusion conclusion = (Conclusion) row.get("$conclusion");
                     System.out.println(">>>" + conclusion.toString());
 
-                    //System.out.println(Haemorrhage.justifications);
                     How how = new How(Haemorrhage.justifications);
                     System.out.println(how.getHowExplanation(conclusion.getId()));
 
-                    // stop inference engine after as soon as got a conclusion
+                    // stop inference engine as soon as got a conclusion
                     kSession.halt();
-
                 }
 
                 @Override
-                public void rowUpdated(Row row) {
-                }
-
+                public void rowUpdated(Row row) {}
             };
 
             LiveQuery query = kSession.openLiveQuery("Conclusions", null, listener);
 
             kSession.fireAllRules();
-            // kSession.fireUntilHalt();
 
             query.close();
 

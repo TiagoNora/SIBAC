@@ -18,12 +18,18 @@ public class Conclusion extends Fact{
     public static final String VIGILANCIA_ATIVA = "Paciente será posto em vigilancia";
 
     public static final String UNKNOWN   = "Não sabemos";
+
+    public static final String APTO = "Paciente está APTO";
+
+    public static final String INAPTO = "Paciente não está APTO";
     private String description;
 
     public Conclusion(String description) {
         this.description = description;
         Haemorrhage.agendaEventListener.addRhs(this);
     }
+
+
 
     public String getDescription() {
         return description;
