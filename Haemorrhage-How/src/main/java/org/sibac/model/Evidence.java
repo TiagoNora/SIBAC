@@ -12,7 +12,7 @@ public class Evidence<T> extends Fact{
     public static final String UROTAC_HBP_ULTRASSONOGRAFIA = "Qual é volume da prostata (normal|anormal)";
     public static final String IDADE_PACIENTE = "Qual é a idade do paciente";
     public static final String CONDICAO_PACIENTE = "Qual é a condição do paciente (0-100)";
-    public static final String CANCRO_RISCO = "Como quer avaliar o risco (PSA)";
+    public static final String CANCRO_RISCO = "Como quer avaliar o risco (PSA|GG|CT2)";
     public static final String CANCRO_PSA = "Qual é o valor do PSA (baixo (<5)| medio (5-10)|alto (>10))";
     public static final String CANCRO_GG = "Qual é o valor do GG (baixo (2-3)| medio (4-5)|alto (>5)";
     public static final String CANCRO_CT2 = "Qual é o tipo de CT2 (b|c|d)";

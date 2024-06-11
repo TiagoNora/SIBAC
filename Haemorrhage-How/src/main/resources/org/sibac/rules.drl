@@ -125,6 +125,8 @@ rule "r31"
         eval(answer(Evidence.CANCRO_RISCO, "psa"))
     then
     info.addCistoInfo("Paciente está apto para tratamento!");
+                info.addCistoInfo("O psa é usado como critério para avaliar o risco!");
+
         Hypothesis h = new Hypothesis("Availar cancro", "psa");
         insert(h);
 end
@@ -149,6 +151,8 @@ rule "r32"
             eval(answer(Evidence.CANCRO_RISCO, "gg"))
         then
             Hypothesis h = new Hypothesis("Availar cancro", "gg");
+            info.addCistoInfo("O paciente está apto para ser submetido a um tratamento!");
+
             info.addCistoInfo("O gg é usado para avaliar o risco associado ao cancro!");
 
             insert(h);
@@ -166,6 +170,103 @@ rule "r33"
             insert(h);
 end
 
+rule "r101"
+    when
+        Hypothesis(description == "Verificar cancro", value == "psa")
+        eval(answer(Evidence.CANCRO_PSA, "baixo"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Hypothesis h = new Hypothesis("avaliar urotac", "sim");
+        info.addCistoInfo("O valor do PSA é baixo, logo o paciente tem um cancro de risco médio!");
+        info.addCistoInfo("Para este caso, poderá sugerir um destes tratamentos: (enunciar tratamentos) !");
+        insert(h);
+
+
+
+
+end
+
+rule "r102"
+    when
+        Hypothesis(description == "Verificar cancro", value == "psa")
+        eval(answer(Evidence.CANCRO_PSA, "medio"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Hypothesis h = new Hypothesis("avaliar urotac", "sim");
+        info.addCistoInfo("O valor do psa é medio, logo o paciente tem um cancro de risco médio!");
+        info.addCistoInfo("Para este caso, poderá sugerir um destes tratamentos: (enunciar tratamentos) !");
+        insert(h);
+
+
+
+
+end
+
+rule "r103"
+    when
+        Hypothesis(description == "Verificar cancro", value == "psa")
+        eval(answer(Evidence.CANCRO_PSA, "alto"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Hypothesis h = new Hypothesis("avaliar urotac", "sim");
+        info.addCistoInfo("O valor do psa é alto, logo o paciente tem um cancro de risco médio!");
+        info.addCistoInfo("Para este caso, poderá sugerir um destes tratamentos: (enunciar tratamentos) !");
+        insert(h);
+
+
+
+
+end
+
+
+rule "r105"
+    when
+        Hypothesis(description == "Verificar cancro", value == "gg")
+        eval(answer(Evidence.CANCRO_GG, "baixo"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Hypothesis h = new Hypothesis("avaliar urotac", "sim");
+        info.addCistoInfo("O valor do gg é baixo, logo o paciente tem um cancro de risco médio!");
+        info.addCistoInfo("Para este caso, poderá sugerir um destes tratamentos: (enunciar tratamentos) !");
+        insert(h);
+
+
+
+
+end
+
+rule "r106"
+    when
+        Hypothesis(description == "Verificar cancro", value == "g")
+        eval(answer(Evidence.CANCRO_GG, "medio"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Hypothesis h = new Hypothesis("avaliar urotac", "sim");
+        info.addCistoInfo("O valor do gg é medio, logo o paciente tem um cancro de risco médio!");
+        info.addCistoInfo("Para este caso, poderá sugerir um destes tratamentos: (enunciar tratamentos) !");
+        insert(h);
+
+
+
+
+end
+
+rule "r107"
+    when
+        Hypothesis(description == "Verificar cancro", value == "gg")
+        eval(answer(Evidence.CANCRO_GG, "alto"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Hypothesis h = new Hypothesis("avaliar urotac", "sim");
+        info.addCistoInfo("O valor do gg é alto, logo o paciente tem um cancro de risco médio!");
+        info.addCistoInfo("Para este caso, poderá sugerir um destes tratamentos: (enunciar tratamentos) !");
+        insert(h);
+
+
+
+
+end
+
 
 
 rule "r34"
@@ -179,7 +280,7 @@ rule "r34"
         info.addCistoInfo("Para este caso, poderá sugerir um destes tratamentos: (enunciar tratamentos) !");
         insert(h);
 
-         // adicionar a uma estrutura de dados para futuro processamento
+
 
 
 end
@@ -489,6 +590,120 @@ rule "r95"
 end
 
 
+///----
+rule "543"
+    when
+        Hypothesis(description == "Verificar cancro-uro-eco", value == "gg")
+        eval(answer(Evidence.CANCRO_GG, "baixo"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.MEDIO);
+        info.addEcoFact("O cancro é de risco médio!");
+        info.addEcoFact("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+rule "544"
+    when
+        Hypothesis(description == "Verificar cancro-uro-eco", value == "gg")
+        eval(answer(Evidence.CANCRO_GG, "medio"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.ALTO);
+        info.addEcoFact("O cancro é de risco alto!");
+        info.addEcoFact("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+rule "545"
+    when
+        Hypothesis(description == "Verificar cancro-uro-eco", value == "gg")
+        eval(answer(Evidence.CANCRO_GG, "alto"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.AVANCADO);
+        info.addEcoFact("O cancro é de risco avançado!");
+        info.addEcoFact("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+
+rule "546"
+    when
+        Hypothesis(description == "Verificar cancro-uro-eco", value == "psa")
+        eval(answer(Evidence.CANCRO_PSA, "baixo"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.MEDIO);
+        info.addEcoFact("O cancro é de risco médio!");
+        info.addEcoFact("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+rule "547"
+    when
+        Hypothesis(description == "Verificar cancro-uro-eco", value == "psa")
+        eval(answer(Evidence.CANCRO_PSA, "medio"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.ALTO);
+        info.addEcoFact("O cancro é de risco Alto!");
+        info.addEcoFact("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+rule "548"
+    when
+        Hypothesis(description == "Verificar cancro-uro-eco", value == "psa")
+        eval(answer(Evidence.CANCRO_PSA, "alto"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.AVANCADO);
+        info.addEcoFact("O cancro é de risco avançado!");
+        info.addEcoFact("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+
+
+
+
+
+
+
+///----
+
+
 
 rule "r96"
     when
@@ -635,6 +850,8 @@ rule "r72"
         insert(h);
 end
 
+
+
 rule "r73"
     salience 10
     when
@@ -671,6 +888,119 @@ rule "r75"
 
             insert(h);
 end
+
+
+
+//----
+rule "r888"
+    when
+        Hypothesis(description == "Verificar cancro-uro", value == "gg")
+        eval(answer(Evidence.CANCRO_GG, "baixo"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.MEDIO);
+        info.addUroInfo("O cancro é de risco médio!");
+        info.addUroInfo("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+rule "r432"
+    when
+        Hypothesis(description == "Verificar cancro-uro", value == "gg")
+        eval(answer(Evidence.CANCRO_GG, "medio"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.ALTO);
+        info.addUroInfo("O cancro é de risco alto!");
+        info.addUroInfo("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+rule "r665"
+    when
+        Hypothesis(description == "Verificar cancro-uro", value == "gg")
+        eval(answer(Evidence.CANCRO_GG, "alto"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.AVANCADO);
+        info.addUroInfo("O cancro é de risco avançado!");
+        info.addUroInfo("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+
+rule "r7622"
+    when
+        Hypothesis(description == "Verificar cancro-uro", value == "psa")
+        eval(answer(Evidence.CANCRO_PSA, "baixo"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.MEDIO);
+        info.addUroInfo("O cancro é de risco médio!");
+        info.addUroInfo("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+rule "r7611"
+    when
+        Hypothesis(description == "Verificar cancro-uro", value == "psa")
+        eval(answer(Evidence.CANCRO_PSA, "medio"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.ALTO);
+        info.addUroInfo("O cancro é de risco alto!");
+        info.addUroInfo("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+rule "r7600"
+    when
+        Hypothesis(description == "Verificar cancro-uro", value == "psa")
+        eval(answer(Evidence.CANCRO_PSA, "alto"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.AVANCADO);
+        info.addUroInfo("O cancro é de risco avançado!");
+        info.addUroInfo("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+
+
+
+//______
+
+
 
 
 
