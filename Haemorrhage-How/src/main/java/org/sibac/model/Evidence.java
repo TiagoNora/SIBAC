@@ -17,7 +17,7 @@ public class Evidence<T> extends Fact{
     public static final String CANCRO_GG = "Qual é o valor do GG (baixo (2-3)| medio (4-5)|alto (>5)";
     public static final String CANCRO_CT2 = "Qual é o tipo de CT2 (b|c|d)";
 
-    public static final String ECOGRAFIA_BASIC = "Acusa alguma coisa? (sim|nao)";
+    public static final String ECOGRAFIA_BASIC = "A ecografia cusa alguma coisa? (sim|nao)";
 
     public static final String ECOGRAFIA_BASIC_SIM = "O que acusa? (cancro|hbp)";
 

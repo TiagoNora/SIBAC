@@ -55,4 +55,16 @@ public class FuzzyLogicHelper {
 
         return c;
     }
+
+    public Hypothesis returnconclusion_eco(double viability){
+        Hypothesis c;
+        System.out.print(viability);
+        if (viability < 50.0) {
+            c = new Hypothesis("Prosseguir tratamento-uro-eco", "apto-uro-eco");
+        } else {
+            c = new Hypothesis("Prosseguir tratamento-uro-eco", "nao apto-uro-eco");
+        }
+
+        return c;
+    }
 }

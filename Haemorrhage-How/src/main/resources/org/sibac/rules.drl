@@ -352,6 +352,20 @@ rule "r18"
 end
 
 // Handle both Cistoscopia and Urotac with negative results, perform Ecografia
+
+rule "r68"
+    when
+        eval(answer(Evidence.CISTOSCOPIA_FACT, "nao"))
+        eval(answer(Evidence.UROTAC_FACT, "sim"))
+    then
+        Hypothesis h = new Hypothesis("avaliar urotac", "sim");
+           info.addCistoInfo("Cistoscopia não revela nada!");
+
+        insert(h);
+end
+
+
+
 rule "r19"
     when
         eval(answer(Evidence.CISTOSCOPIA_FACT, "nao"))
@@ -394,10 +408,132 @@ rule "r22"
         Hypothesis(description == "Doença", value == "Qual o tipo")
         eval(answer(Evidence.ECOGRAFIA_BASIC_SIM, "cancro"))
     then
-        Hypothesis h = new Hypothesis("Analisar paciente expetativa - uro", "expetativa-uro");
+        Hypothesis h = new Hypothesis("Analisar paciente expetativa - uro - eco", "expetativa-uro-eco");
         info.addEcoFact("Ecografia indica a presença de cancro!");
         insert(h);
 end
+
+rule "r90"
+    when
+        Hypothesis(description == "Analisar paciente expetativa - uro - eco", value == "expetativa-uro-eco")
+        eval(answer(Evidence.EXPECTATIVA_UTENTE, "sim"))
+    then
+        Hypothesis h = new Hypothesis("Analisar paciente - uro -eco", "idade");
+        info.addEcoFact("O tratamento fornece uma expetativa de vida superior a 10 anos");
+        insert(h);
+end
+
+// Handle patient expectation analysis and viability calculation
+rule "r91"
+    when
+        Hypothesis(description == "Analisar paciente - uro -eco", value == "idade")
+        $input: UserInput()
+    then
+        double age = Double.parseDouble($input.getAge());
+        double physicalCondition = Double.parseDouble($input.getPhysicalCondition());
+
+        FuzzyLogicHelper fuzzyHelper = new FuzzyLogicHelper("Haemorrhage-How/src/main/java/org/sibac/fcl/health.fcl");
+        double viability = fuzzyHelper.getViability(age, physicalCondition);
+        Hypothesis c = fuzzyHelper.returnconclusion_eco(viability);
+        insert(c);
+
+end
+
+rule "r92"
+    salience 10
+    when
+        Hypothesis(description == "Prosseguir tratamento-uro-eco", value == "apto-uro-eco")
+        eval(answer(Evidence.CANCRO_RISCO, "psa"))
+    then
+        Hypothesis h = new Hypothesis("Verificar cancro - uro-eco", "psa");
+                info.addEcoFact("Paciente encontra-se apto para tratamento");
+
+        insert(h);
+end
+
+rule "r93"
+    salience 10
+    when
+        Hypothesis(description == "Prosseguir tratamento-uro-eco", value == "nao apto-uro-eco")
+    then
+        Conclusion c = new Conclusion(Conclusion.PALEATIVO);
+                info.addEcoFact("Paciente não se encontra em condições para ser submetido a tratamento!");
+                        info.addEcoFact("Paciente receberá tratamento paleativo!");
+
+
+        insert(c);
+end
+
+
+rule "r94"
+    salience 10
+    when
+            Hypothesis(description == "Prosseguir tratamento-uro-eco", value == "apto-uro-eco")
+            eval(answer(Evidence.CANCRO_RISCO, "gg"))
+        then
+            Hypothesis h = new Hypothesis("Verificar cancro-eco", "gg");
+                    info.addEcoFact("O critério gg é usado para avaliar o risco do cancro!");
+
+            insert(h);
+end
+
+rule "r95"
+    when
+            Hypothesis(description == "Prosseguir tratamento-uro-eco", value == "apto-uro-eco")
+            eval(answer(Evidence.CANCRO_RISCO, "ct2"))
+        then
+            Hypothesis h = new Hypothesis("Verificar cancro-uro-eco", "ct2");
+                                info.addEcoFact("O critério ct2 é usado para avaliar o risco do cancro!");
+
+            insert(h);
+end
+
+
+
+rule "r96"
+    when
+        Hypothesis(description == "Verificar cancro-uro-eco", value == "ct2")
+        eval(answer(Evidence.CANCRO_CT2, "b"))
+    then
+        // Asserting a new hypothesis to trigger rule "r5"
+        Conclusion c = new Conclusion(Conclusion.MEDIO);
+        info.addEcoFact("O cancro é de risco médio!");
+        info.addEcoFact("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+
+        insert(c);
+
+         // adicionar a uma estrutura de dados para futuro processamento
+
+
+end
+
+rule "r97"
+    when
+                Hypothesis(description == "Verificar cancro-uro-eco", value == "ct2")
+                eval(answer(Evidence.CANCRO_CT2, "c"))
+            then
+                Conclusion c = new Conclusion(Conclusion.ALTO);
+                        info.addEcoFact("O cancro é de risco Alto!");
+                        info.addEcoFact("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+                insert(c);
+end
+
+rule "r98"
+    when
+                Hypothesis(description == "Verificar cancro-uro-eco", value == "ct2")
+                eval(answer(Evidence.CANCRO_CT2, "d"))
+            then
+                Conclusion c = new Conclusion(Conclusion.AVANCADO);
+                        info.addEcoFact("O cancro é de risco avançado!");
+                                        info.addEcoFact("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+                insert(c);
+end
+
+
+
+
+
+
 
 // Handle Ecografia disease type identification (HBP)
 rule "r23"
@@ -405,10 +541,48 @@ rule "r23"
         Hypothesis(description == "Doença", value == "Qual o tipo")
         eval(answer(Evidence.ECOGRAFIA_BASIC_SIM, "hbp"))
     then
-        Hypothesis h = new Hypothesis("Doença", "Presença de HBP");
+        Hypothesis h = new Hypothesis("Doença-eco", "Presença de HBP");
         info.addEcoFact("Ecografia indica HBP!");
         insert(h);
 end
+
+
+rule "r87"
+    when
+        Hypothesis(description == "Doença-eco", value == "Presença de HBP")
+        eval(answer(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA, "anormal"))
+    then
+        Conclusion c = new Conclusion(Conclusion.HBP_ANORMAL);
+        insert(c);
+            info.addEcoFact("O volume da próstata é anormal!");
+                info.addEcoFact("O paciente deve seguir uma destas recomendações (enunciar recomendações)!");
+        Conclusion c1 = new Conclusion(Conclusion.TRATAMENTO_HBP);
+        insert(c1);
+end
+
+rule "r88"
+    when
+        Hypothesis(description == "Doença-eco", value == "Presença de HBP")
+        eval(answer(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA, "normal"))
+    then
+        Conclusion c = new Conclusion(Conclusion.HBP_NORMAL);
+        insert(c);
+            info.addEcoFact("O volume da próstata é normal!");
+                info.addEcoFact("O paciente não tem tratamento, mas deve ser vigiado");
+        Conclusion c1 = new Conclusion(Conclusion.NAO_HA_TRATAMENTO);
+        insert(c1);
+end
+
+
+
+
+
+
+
+
+
+
+
 
 // Handle Urotac result with cancer in urinary tracts
 rule "r24"

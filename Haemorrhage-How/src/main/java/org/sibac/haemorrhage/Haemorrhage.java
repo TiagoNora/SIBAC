@@ -96,6 +96,7 @@ public class Haemorrhage {
             // Get the processed information
             ArrayList<String> cistoFacts = info.getCisto_facts();
             ArrayList<String> uroFacts = info.getUro_facts();
+            ArrayList<String> ecoFacts = info.getEco_facts();
 
 // Process or display the information as needed
             System.out.println("Factos da cistoscopia:");
@@ -109,6 +110,15 @@ public class Haemorrhage {
 
             System.out.println("Factos do urotac:");
             for (String fact : uroFacts) {
+                System.out.println(fact);
+            }
+
+
+            System.out.println("--------------------------");
+
+
+            System.out.println("Factos da ecografia:");
+            for (String fact : ecoFacts) {
                 System.out.println(fact);
             }
 
