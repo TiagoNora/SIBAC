@@ -34,7 +34,7 @@ public class FuzzyLogicHelper {
 
     public Hypothesis returnconclusion(double viability){
         Hypothesis c;
-        System.out.print(viability);
+        //System.out.print(viability);
         if (viability < 50.0) {
             c = new Hypothesis("Prosseguir tratamento", "apto");
         } else {
@@ -46,7 +46,7 @@ public class FuzzyLogicHelper {
 
     public Hypothesis returnconclusion_uro(double viability){
         Hypothesis c;
-        System.out.print(viability);
+        //System.out.print(viability);
         if (viability < 50.0) {
             c = new Hypothesis("Prosseguir tratamento-uro", "apto-uro");
         } else {
@@ -58,7 +58,7 @@ public class FuzzyLogicHelper {
 
     public Hypothesis returnconclusion_eco(double viability){
         Hypothesis c;
-        System.out.print(viability);
+        //System.out.print(viability);
         if (viability < 50.0) {
             c = new Hypothesis("Prosseguir tratamento-uro-eco", "apto-uro-eco");
         } else {
