@@ -524,6 +524,17 @@ rule "r90"
         insert(h);
 end
 
+rule "r9987"
+    when
+        Hypothesis(description == "Analisar paciente expetativa - uro - eco", value == "expetativa-uro-eco")
+        eval(answer(Evidence.EXPECTATIVA_UTENTE, "nao"))
+    then
+Conclusion c = new Conclusion(Conclusion.VIGILANCIA_ATIVA);
+info.addEcoFact("O tratamento não fornece uma expetativa de vida desejável!");
+        info.addEcoFact("O paciente não deve avançar com tratamento. Deve ser colocado em vigilância ativa!");
+        insert(c);
+end
+
 // Handle patient expectation analysis and viability calculation
 rule "r91"
     when
@@ -1056,8 +1067,8 @@ rule "r26"
         eval(answer(Evidence.EXPECTATIVA_UTENTE, "nao"))
     then
         Conclusion c = new Conclusion(Conclusion.VIGILANCIA_ATIVA);
-                info.addUroInfo("O cancro é de risco Alto!");
-                                info.addUroInfo("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
+                info.addUroInfo("O tratamento não prolonga vida do paciente!");
+                                info.addUroInfo("Devido a tal, este deve permancer em vigilância ativa!");
         insert(c);
 end
 

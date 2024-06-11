@@ -20,6 +20,10 @@ import org.sibac.model.UserInput;
 
 import java.util.ArrayList;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.Scanner;
 
 
@@ -93,10 +97,38 @@ public class Haemorrhage {
 
             query.close();
 
+            scanner.close();
+
+
             // Get the processed information
             ArrayList<String> cistoFacts = info.getCisto_facts();
             ArrayList<String> uroFacts = info.getUro_facts();
             ArrayList<String> ecoFacts = info.getEco_facts();
+
+
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("frontend/information/factos.txt"))) {
+                writer.write("Cisto Facts:\n");
+                for (String fact : cistoFacts) {
+                    writer.write(fact);
+                    writer.newLine();
+                }
+    
+                writer.write("\nUro Facts:\n");
+                for (String fact : uroFacts) {
+                    writer.write(fact);
+                    writer.newLine();
+                }
+    
+                writer.write("\nEco Facts:\n");
+                for (String fact : ecoFacts) {
+                    writer.write(fact);
+                    writer.newLine();
+                }
+    
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 // Process or display the information as needed
             System.out.println("Factos da cistoscopia:");
@@ -122,10 +154,16 @@ public class Haemorrhage {
                 System.out.println(fact);
             }
 
+
+
         } catch (Throwable t) {
             t.printStackTrace();
         }
+
+
     }
+
+    
 
 }
 
