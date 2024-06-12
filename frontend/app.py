@@ -1,6 +1,7 @@
 import streamlit as st
 import networkx as nx
 from pyvis.network import Network
+import streamlit.components.v1
 
 
 # Function to read and parse the file
