@@ -52,6 +52,7 @@ rule "r1"
     then
         Hypothesis h = new Hypothesis("Analisar dado", "PSA");
         insert(h);
+        info.addCistoInfo(Evidence.CISTOSCOPIA_FACT);
         info.addCistoInfo("Cistocopia acusou algo!");
 end
 
@@ -100,8 +101,8 @@ rule "r25"
         Hypothesis(description == "Analisar paciente expetativa", value == "expetativa")
         eval(answer(Evidence.EXPECTATIVA_UTENTE, "sim"))
     then
-    info.addCistoInfo(Evidence.EXPECTATIVA_UTENTE);
-    info.addCistoInfo("O tratamento fornece uma expetativa de pelo menos 10 anos!");
+        info.addCistoInfo(Evidence.EXPECTATIVA_UTENTE);
+        info.addCistoInfo("O tratamento fornece uma expetativa de pelo menos 10 anos!");
         Hypothesis h = new Hypothesis("Analisar paciente", "idade");
         insert(h);
 end
@@ -128,8 +129,9 @@ rule "r31"
         Hypothesis(description == "Prosseguir tratamento", value == "apto")
         eval(answer(Evidence.CANCRO_RISCO, "psa"))
     then
-                info.addCistoInfo("Paciente está apto para tratamento!\nO psa é usado como critério para avaliar o risco!");
-                //info.addCistoInfo("O psa é usado como critério para avaliar o risco!");
+        info.addCistoInfo(Evidence.CANCRO_RISCO);
+        info.addCistoInfo("Paciente está apto para tratamento!\nO psa é usado como critério para avaliar o risco!");
+        //info.addCistoInfo("O psa é usado como critério para avaliar o risco!");
 
         Hypothesis h = new Hypothesis("Verificar cancro", "psa");
         insert(h);
@@ -141,7 +143,7 @@ rule "r39"
         Hypothesis(description == "Prosseguir tratamento", value == "nao apto")
 
     then
-    info.addCistoInfo("Paciente não está apto!\n O mesmo deve ser submetido a tratamentos paleativos!");
+        info.addCistoInfo("Paciente não está apto!\n O mesmo deve ser submetido a tratamentos paleativos!");
         Conclusion c = new Conclusion(Conclusion.PALEATIVO);
         //info.addCistoInfo("Paciente é submetido a tratamentos paleativos");
         insert(c);
@@ -154,6 +156,7 @@ rule "r32"
             Hypothesis(description == "Prosseguir tratamento", value == "apto")
             eval(answer(Evidence.CANCRO_RISCO, "gg"))
         then
+            info.addCistoInfo(Evidence.CANCRO_RISCO);
             Hypothesis h = new Hypothesis("Verificar cancro", "gg");
             info.addCistoInfo("Dada a idade e condição do paciente, o mesmo encontra-se apto para ser submetido a um tratamento!");
             info.addCistoInfo("O gg é usado para avaliar o risco associado ao cancro!");
@@ -166,6 +169,7 @@ rule "r33"
             Hypothesis(description == "Prosseguir tratamento", value == "apto")
             eval(answer(Evidence.CANCRO_RISCO, "ct2"))
         then
+            info.addCistoInfo(Evidence.CANCRO_RISCO);
             Hypothesis h = new Hypothesis("Verificar cancro", "ct2");
             info.addCistoInfo("O paciente está apto para ser submetido a um tratamento!");
             info.addCistoInfo("O ct2 é usado para avaliar o risco associado ao cancro!");
@@ -178,6 +182,7 @@ rule "r101"
         Hypothesis(description == "Verificar cancro", value == "psa")
         eval(answer(Evidence.CANCRO_PSA, "baixo"))
     then
+        info.addCistoInfo(Evidence.CANCRO_PSA);
         // Asserting a new hypothesis to trigger rule "r5"
         Hypothesis h = new Hypothesis("avaliar urotac", "sim");
         info.addCistoInfo("O valor do PSA é baixo, logo o paciente tem um cancro de risco médio!");
@@ -194,6 +199,7 @@ rule "r102"
         Hypothesis(description == "Verificar cancro", value == "psa")
         eval(answer(Evidence.CANCRO_PSA, "medio"))
     then
+        info.addCistoInfo(Evidence.CANCRO_PSA);
         // Asserting a new hypothesis to trigger rule "r5"
         Hypothesis h = new Hypothesis("avaliar urotac", "sim");
         info.addCistoInfo("O valor do psa é medio, logo o paciente tem um cancro de risco alto!");
@@ -210,6 +216,7 @@ rule "r103"
         Hypothesis(description == "Verificar cancro", value == "psa")
         eval(answer(Evidence.CANCRO_PSA, "alto"))
     then
+        info.addCistoInfo(Evidence.CANCRO_PSA);
         // Asserting a new hypothesis to trigger rule "r5"
         Hypothesis h = new Hypothesis("avaliar urotac", "sim");
         info.addCistoInfo("O valor do psa é alto, logo o paciente tem um cancro de risco avançado!");
@@ -227,6 +234,7 @@ rule "r105"
         Hypothesis(description == "Verificar cancro", value == "gg")
         eval(answer(Evidence.CANCRO_GG, "baixo"))
     then
+        info.addCistoInfo(Evidence.CANCRO_GG);
         // Asserting a new hypothesis to trigger rule "r5"
         Hypothesis h = new Hypothesis("avaliar urotac", "sim");
         info.addCistoInfo("O valor do gg é baixo, logo o paciente tem um cancro de risco médio!");
@@ -243,6 +251,7 @@ rule "r106"
         Hypothesis(description == "Verificar cancro", value == "gg")
         eval(answer(Evidence.CANCRO_GG, "medio"))
     then
+        info.addCistoInfo(Evidence.CANCRO_GG);
         // Asserting a new hypothesis to trigger rule "r5"
         Hypothesis h = new Hypothesis("avaliar urotac", "sim");
         info.addCistoInfo("O valor do gg é medio, logo o paciente tem um cancro de risco alto!");
@@ -259,6 +268,7 @@ rule "r107"
         Hypothesis(description == "Verificar cancro", value == "gg")
         eval(answer(Evidence.CANCRO_GG, "alto"))
     then
+        info.addCistoInfo(Evidence.CANCRO_GG);
         // Asserting a new hypothesis to trigger rule "r5"
         Hypothesis h = new Hypothesis("avaliar urotac", "sim");
         info.addCistoInfo("O valor do gg é alto, logo o paciente tem um cancro de risco avançado!");
@@ -277,6 +287,7 @@ rule "r34"
         Hypothesis(description == "Verificar cancro", value == "ct2")
         eval(answer(Evidence.CANCRO_CT2, "b"))
     then
+        info.addCistoInfo(Evidence.CANCRO_CT2);
         // Asserting a new hypothesis to trigger rule "r5"
         Hypothesis h = new Hypothesis("avaliar urotac", "sim");
         info.addCistoInfo("O valor do ct2 é o B, logo o paciente tem um cancro de risco médio!");
@@ -293,6 +304,7 @@ rule "r35"
                 Hypothesis(description == "Verificar cancro", value == "ct2")
                 eval(answer(Evidence.CANCRO_CT2, "c"))
             then
+                info.addCistoInfo(Evidence.CANCRO_CT2);
                 Hypothesis h = new Hypothesis("avaliar urotac", "sim");
                 info.addCistoInfo("O valor do ct2 é o C, logo o paciente tem um cancro de risco Alto!");
                 info.addCistoInfo("Para este caso, poderá sugerir um destes tratamentos: (enunciar tratamentos) !");
@@ -304,6 +316,7 @@ rule "r36"
                 Hypothesis(description == "Verificar cancro", value == "ct2")
                 eval(answer(Evidence.CANCRO_CT2, "d"))
             then
+                info.addCistoInfo(Evidence.CANCRO_CT2);
                 Hypothesis h = new Hypothesis("avaliar urotac", "sim");
                 info.addCistoInfo("O valor do ct2 é o d, logo o paciente tem um cancro de risco avançado!");
                 info.addCistoInfo("Para este caso, poderá sugerir um destes tratamentos: (enunciar tratamentos) !");
@@ -328,6 +341,7 @@ rule "r5"
         Hypothesis(description == "avaliar urotac", value == "sim")
         eval(answer(Evidence.UROTAC_FACT, "sim"))
     then
+        info.addUroInfo(Evidence.UROTAC_FACT);
         info.addUroInfo("Urotac acusou algo!");
 
         Hypothesis h = new Hypothesis("Doença", "Presença de doença");
@@ -341,6 +355,7 @@ rule "r6"
         Hypothesis(description == "Doença", value == "Presença de doença")
         eval(answer(Evidence.UROTAC_RESULT, "pedras"))
     then
+        info.addUroInfo(Evidence.UROTAC_RESULT);
         Conclusion c = new Conclusion(Conclusion.PEDRAS_RINS);
         info.addUroInfo("Urotac acusou pedras nos rins!");
         insert(c);
@@ -352,6 +367,7 @@ rule "r7"
         Conclusion(description == Conclusion.PEDRAS_RINS)
         eval(answer(Evidence.UROTAC_PEDRAS, "pequeno"))
     then
+        info.addUroInfo(Evidence.UROTAC_PEDRAS);
         Conclusion c = new Conclusion(Conclusion.BEBER_AGUA);
         info.addUroInfo("As pedras são de tamanho pequeno!");
         info.addUroInfo("O paciente deve beber água!");
@@ -364,6 +380,7 @@ rule "r8"
         Conclusion(description == Conclusion.PEDRAS_RINS)
         eval(answer(Evidence.UROTAC_PEDRAS, "medio"))
     then
+        info.addUroInfo(Evidence.UROTAC_PEDRAS);
         Conclusion c = new Conclusion(Conclusion.TOMAR_MEDICAMENTO);
             info.addUroInfo("As pedras são de tamanho médio!");
                 info.addUroInfo("O paciente tomar medicamentos!");
@@ -376,6 +393,7 @@ rule "r9"
         Conclusion(description == Conclusion.PEDRAS_RINS)
         eval(answer(Evidence.UROTAC_PEDRAS, "grande"))
     then
+        info.addUroInfo(Evidence.UROTAC_PEDRAS);
         Conclusion c = new Conclusion(Conclusion.REALIZAR_CIRURGIA);
         info.addUroInfo("As pedras são de tamanho grande!");
         info.addUroInfo("O paciente deve realizar uma cirurgia!");
@@ -388,6 +406,7 @@ rule "r10"
         Hypothesis(description == "Doença", value == "Presença de doença")
         eval(answer(Evidence.UROTAC_RESULT, "hbp"))
     then
+        info.addUroInfo(Evidence.UROTAC_RESULT);
         Hypothesis h = new Hypothesis("Doença", "Presença de HBP");
         info.addUroInfo("O urotac demonstra HBP!");
         insert(h);
@@ -398,6 +417,7 @@ rule "r11"
         Hypothesis(description == "Doença", value == "Presença de HBP")
         eval(answer(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA, "anormal"))
     then
+        info.addUroInfo(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA);
         Conclusion c = new Conclusion(Conclusion.HBP_ANORMAL);
         insert(c);
             info.addUroInfo("O volume da próstata é anormal!");
@@ -411,6 +431,7 @@ rule "r12"
         Hypothesis(description == "Doença", value == "Presença de HBP")
         eval(answer(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA, "normal"))
     then
+        info.addUroInfo(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA);
         Conclusion c = new Conclusion(Conclusion.HBP_NORMAL);
         insert(c);
             info.addUroInfo("O volume da próstata é normal!");
@@ -425,6 +446,7 @@ rule "r16"
         Hypothesis(description == "Analisar dado", value == "PSA")
         eval(answer(Evidence.CISTOSCOPIA_PSA, "nao"))
     then
+        info.addCistoInfo(Evidence.CISTOSCOPIA_PSA);
         Hypothesis h = new Hypothesis("avaliar urotac", "sim");
             info.addCistoInfo("Níveis de psa dentro normal!");
                 info.addCistoInfo("O paciente deve ser vigiado!");
@@ -437,6 +459,7 @@ rule "r17"
         Hypothesis(description == "Realizar exame", value == "Tomografia")
         eval(answer(Evidence.CISTOSCOPIA_TOMOGRAFIA, "nao"))
     then
+        info.addCistoInfo(Evidence.CISTOSCOPIA_TOMOGRAFIA);
         Hypothesis h = new Hypothesis("avaliar urotac", "sim");
             info.addCistoInfo("Tomografia não revela cancro!");
                          info.addCistoInfo("O paciente deve ser vigiado!");
@@ -449,6 +472,7 @@ rule "r18"
         Hypothesis(description == "Realizar exame", value == "Biopsia")
         eval(answer(Evidence.CISTOSCOPIA_BIOPSIA, "nao"))
     then
+        info.addCistoInfo(Evidence.CISTOSCOPIA_BIOPSIA);
         Hypothesis h = new Hypothesis("avaliar urotac", "sim");
            info.addCistoInfo("Biposia não revela cancro!");
                         info.addCistoInfo("O paciente deve ser vigiado!");
@@ -462,9 +486,11 @@ rule "r68"
         eval(answer(Evidence.CISTOSCOPIA_FACT, "nao"))
         eval(answer(Evidence.UROTAC_FACT, "sim"))
     then
+        info.addCistoInfo(Evidence.CISTOSCOPIA_FACT);
+        info.addUroInfo(Evidence.UROTAC_FACT);
         Hypothesis h = new Hypothesis("avaliar urotac", "sim");
-           info.addCistoInfo("Cistoscopia não revela nada!");
-
+        info.addCistoInfo("Cistoscopia não revela nada!");
+        info.addUroInfo("Urotac revela alguma coisa!");
         insert(h);
 end
 
@@ -475,6 +501,8 @@ rule "r19"
         eval(answer(Evidence.CISTOSCOPIA_FACT, "nao"))
         eval(answer(Evidence.UROTAC_FACT, "nao"))
     then
+        info.addCistoInfo(Evidence.CISTOSCOPIA_FACT);
+        info.addUroInfo(Evidence.UROTAC_FACT);
         Hypothesis h = new Hypothesis("Realizar Exame", "Ecografia bsic prostatic");
            info.addCistoInfo("Cistoscopia não revela nada!");
            info.addUroInfo("Urotac não revela nada");
@@ -489,6 +517,7 @@ rule "r20"
         Hypothesis(description == "Realizar Exame", value == "Ecografia bsic prostatic")
         eval(answer(Evidence.ECOGRAFIA_BASIC, "nao"))
     then
+        info.addEcoFact(Evidence.ECOGRAFIA_BASIC);
         Conclusion c = new Conclusion(Conclusion.NAO_HA_TRATAMENTO);
         info.addEcoFact("Ecografia não revela cancro!");
         info.addEcoFact("Paciente deve ser vigiado!");
@@ -501,6 +530,7 @@ rule "r21"
         Hypothesis(description == "Realizar Exame", value == "Ecografia bsic prostatic")
         eval(answer(Evidence.ECOGRAFIA_BASIC, "sim"))
     then
+        info.addEcoFact(Evidence.ECOGRAFIA_BASIC);
         Hypothesis h = new Hypothesis("Doença", "Qual o tipo");
         info.addEcoFact("A ecografia revela a presença de algo!");
         insert(h);
@@ -512,6 +542,7 @@ rule "r22"
         Hypothesis(description == "Doença", value == "Qual o tipo")
         eval(answer(Evidence.ECOGRAFIA_BASIC_SIM, "cancro"))
     then
+        info.addEcoFact(Evidence.ECOGRAFIA_BASIC_SIM);
         Hypothesis h = new Hypothesis("Analisar paciente expetativa - uro - eco", "expetativa-uro-eco");
         info.addEcoFact("Ecografia indica a presença de cancro!");
         insert(h);
@@ -522,6 +553,7 @@ rule "r90"
         Hypothesis(description == "Analisar paciente expetativa - uro - eco", value == "expetativa-uro-eco")
         eval(answer(Evidence.EXPECTATIVA_UTENTE, "sim"))
     then
+        info.addEcoFact(Evidence.EXPECTATIVA_UTENTE);
         Hypothesis h = new Hypothesis("Analisar paciente - uro -eco", "idade");
         info.addEcoFact("O tratamento fornece uma expetativa de vida superior a 10 anos");
         insert(h);
@@ -532,8 +564,9 @@ rule "r9987"
         Hypothesis(description == "Analisar paciente expetativa - uro - eco", value == "expetativa-uro-eco")
         eval(answer(Evidence.EXPECTATIVA_UTENTE, "nao"))
     then
-Conclusion c = new Conclusion(Conclusion.VIGILANCIA_ATIVA);
-info.addEcoFact("O tratamento não fornece uma expetativa de vida desejável!");
+        info.addEcoFact(Evidence.EXPECTATIVA_UTENTE);
+        Conclusion c = new Conclusion(Conclusion.VIGILANCIA_ATIVA);
+        info.addEcoFact("O tratamento não fornece uma expetativa de vida desejável!");
         info.addEcoFact("O paciente não deve avançar com tratamento. Deve ser colocado em vigilância ativa!");
         insert(c);
 end
@@ -560,6 +593,7 @@ rule "r92"
         Hypothesis(description == "Prosseguir tratamento-uro-eco", value == "apto-uro-eco")
         eval(answer(Evidence.CANCRO_RISCO, "psa"))
     then
+        info.addEcoFact(Evidence.CANCRO_RISCO);
         Hypothesis h = new Hypothesis("Verificar cancro-uro-eco", "psa");
                 info.addEcoFact("Paciente encontra-se apto para tratamento");
 
@@ -586,6 +620,7 @@ rule "r94"
             Hypothesis(description == "Prosseguir tratamento-uro-eco", value == "apto-uro-eco")
             eval(answer(Evidence.CANCRO_RISCO, "gg"))
         then
+            info.addEcoFact(Evidence.CANCRO_RISCO);
             Hypothesis h = new Hypothesis("Verificar cancro-uro-eco", "gg");
                     info.addEcoFact("O critério gg é usado para avaliar o risco do cancro!");
 
@@ -597,6 +632,7 @@ rule "r95"
             Hypothesis(description == "Prosseguir tratamento-uro-eco", value == "apto-uro-eco")
             eval(answer(Evidence.CANCRO_RISCO, "ct2"))
         then
+            info.addEcoFact(Evidence.CANCRO_RISCO);
             Hypothesis h = new Hypothesis("Verificar cancro-uro-eco", "ct2");
                                 info.addEcoFact("O critério ct2 é usado para avaliar o risco do cancro!");
 
@@ -610,6 +646,7 @@ rule "543"
         Hypothesis(description == "Verificar cancro-uro-eco", value == "gg")
         eval(answer(Evidence.CANCRO_GG, "baixo"))
     then
+        info.addEcoFact(Evidence.CANCRO_GG);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.MEDIO);
         info.addEcoFact("O cancro é de risco médio!");
@@ -627,6 +664,7 @@ rule "544"
         Hypothesis(description == "Verificar cancro-uro-eco", value == "gg")
         eval(answer(Evidence.CANCRO_GG, "medio"))
     then
+        info.addEcoFact(Evidence.CANCRO_GG);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.ALTO);
         info.addEcoFact("O cancro é de risco alto!");
@@ -644,6 +682,7 @@ rule "545"
         Hypothesis(description == "Verificar cancro-uro-eco", value == "gg")
         eval(answer(Evidence.CANCRO_GG, "alto"))
     then
+        info.addEcoFact(Evidence.CANCRO_GG);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.AVANCADO);
         info.addEcoFact("O cancro é de risco avançado!");
@@ -662,6 +701,7 @@ rule "546"
         Hypothesis(description == "Verificar cancro-uro-eco", value == "psa")
         eval(answer(Evidence.CANCRO_PSA, "baixo"))
     then
+        info.addEcoFact(Evidence.CANCRO_PSA);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.MEDIO);
         info.addEcoFact("O cancro é de risco médio!");
@@ -679,6 +719,7 @@ rule "547"
         Hypothesis(description == "Verificar cancro-uro-eco", value == "psa")
         eval(answer(Evidence.CANCRO_PSA, "medio"))
     then
+        info.addEcoFact(Evidence.CANCRO_PSA);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.ALTO);
         info.addEcoFact("O cancro é de risco Alto!");
@@ -696,6 +737,7 @@ rule "548"
         Hypothesis(description == "Verificar cancro-uro-eco", value == "psa")
         eval(answer(Evidence.CANCRO_PSA, "alto"))
     then
+        info.addEcoFact(Evidence.CANCRO_PSA);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.AVANCADO);
         info.addEcoFact("O cancro é de risco avançado!");
@@ -724,6 +766,7 @@ rule "r96"
         Hypothesis(description == "Verificar cancro-uro-eco", value == "ct2")
         eval(answer(Evidence.CANCRO_CT2, "b"))
     then
+        info.addEcoFact(Evidence.CANCRO_CT2);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.MEDIO);
         info.addEcoFact("O cancro é de risco médio!");
@@ -741,6 +784,7 @@ rule "r97"
                 Hypothesis(description == "Verificar cancro-uro-eco", value == "ct2")
                 eval(answer(Evidence.CANCRO_CT2, "c"))
             then
+                info.addEcoFact(Evidence.CANCRO_CT2);
                 Conclusion c = new Conclusion(Conclusion.ALTO);
                         info.addEcoFact("O cancro é de risco Alto!");
                         info.addEcoFact("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
@@ -752,6 +796,7 @@ rule "r98"
                 Hypothesis(description == "Verificar cancro-uro-eco", value == "ct2")
                 eval(answer(Evidence.CANCRO_CT2, "d"))
             then
+                info.addEcoFact(Evidence.CANCRO_CT2);
                 Conclusion c = new Conclusion(Conclusion.AVANCADO);
                         info.addEcoFact("O cancro é de risco avançado!");
                                         info.addEcoFact("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
@@ -770,6 +815,7 @@ rule "r23"
         Hypothesis(description == "Doença", value == "Qual o tipo")
         eval(answer(Evidence.ECOGRAFIA_BASIC_SIM, "hbp"))
     then
+        info.addEcoFact(Evidence.ECOGRAFIA_BASIC_SIM);
         Hypothesis h = new Hypothesis("Doença-eco", "Presença de HBP");
         info.addEcoFact("Ecografia indica HBP!");
         insert(h);
@@ -781,6 +827,7 @@ rule "r87"
         Hypothesis(description == "Doença-eco", value == "Presença de HBP")
         eval(answer(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA, "anormal"))
     then
+        info.addEcoFact(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA);
         Conclusion c = new Conclusion(Conclusion.HBP_ANORMAL);
         insert(c);
             info.addEcoFact("O volume da próstata é anormal!");
@@ -794,6 +841,7 @@ rule "r88"
         Hypothesis(description == "Doença-eco", value == "Presença de HBP")
         eval(answer(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA, "normal"))
     then
+        info.addEcoFact(Evidence.UROTAC_HBP_ULTRASSONOGRAFIA);
         Conclusion c = new Conclusion(Conclusion.HBP_NORMAL);
         insert(c);
             info.addEcoFact("O volume da próstata é normal!");
@@ -819,6 +867,7 @@ rule "r24"
         Hypothesis(description == "Doença", value == "Presença de doença")
         eval(answer(Evidence.UROTAC_RESULT, "cancrovias"))
     then
+        info.addUroInfo(Evidence.UROTAC_RESULT);
         Hypothesis h = new Hypothesis("Analisar paciente expetativa - uro", "expetativa-uro");
         info.addUroInfo("Urotac revela cancro nas vias urinárias!");
         insert(h);
@@ -831,6 +880,7 @@ rule "r70"
         Hypothesis(description == "Analisar paciente expetativa - uro", value == "expetativa-uro")
         eval(answer(Evidence.EXPECTATIVA_UTENTE, "sim"))
     then
+        info.addUroInfo(Evidence.EXPECTATIVA_UTENTE);
         Hypothesis h = new Hypothesis("Analisar paciente - uro", "idade");
         info.addUroInfo("O tratamento fornece uma expetativa de vida superior a 10 anos");
         insert(h);
@@ -858,6 +908,7 @@ rule "r72"
         Hypothesis(description == "Prosseguir tratamento-uro", value == "apto-uro")
         eval(answer(Evidence.CANCRO_RISCO, "psa"))
     then
+        info.addUroInfo(Evidence.CANCRO_RISCO);
         Hypothesis h = new Hypothesis("Verificar cancro - uro", "psa");
                 info.addUroInfo("Paciente encontra-se apto para tratamento");
 
@@ -886,6 +937,7 @@ rule "r74"
             Hypothesis(description == "Prosseguir tratamento-uro", value == "apto-uro")
             eval(answer(Evidence.CANCRO_RISCO, "gg"))
         then
+            info.addUroInfo(Evidence.CANCRO_RISCO);
             Hypothesis h = new Hypothesis("Verificar cancro - uro", "gg");
                     info.addUroInfo("O critério gg é usado para avaliar o risco do cancro!");
 
@@ -897,6 +949,7 @@ rule "r75"
             Hypothesis(description == "Prosseguir tratamento-uro", value == "apto-uro")
             eval(answer(Evidence.CANCRO_RISCO, "ct2"))
         then
+            info.addUroInfo(Evidence.CANCRO_RISCO);
             Hypothesis h = new Hypothesis("Verificar cancro-uro", "ct2");
                                 info.addUroInfo("O critério ct2 é usado para avaliar o risco do cancro!");
 
@@ -911,6 +964,7 @@ rule "r888"
         Hypothesis(description == "Verificar cancro - uro", value == "gg")
         eval(answer(Evidence.CANCRO_GG, "baixo"))
     then
+        info.addUroInfo(Evidence.CANCRO_GG);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.MEDIO);
         info.addUroInfo("O cancro é de risco médio!");
@@ -928,6 +982,7 @@ rule "r432"
         Hypothesis(description == "Verificar cancro - uro", value == "gg")
         eval(answer(Evidence.CANCRO_GG, "medio"))
     then
+        info.addUroInfo(Evidence.CANCRO_GG);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.ALTO);
         info.addUroInfo("O cancro é de risco alto!");
@@ -945,6 +1000,7 @@ rule "r665"
         Hypothesis(description == "Verificar cancro - uro", value == "gg")
         eval(answer(Evidence.CANCRO_GG, "alto"))
     then
+        info.addUroInfo(Evidence.CANCRO_GG);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.AVANCADO);
         info.addUroInfo("O cancro é de risco avançado!");
@@ -963,6 +1019,7 @@ rule "r7622"
         Hypothesis(description == "Verificar cancro - uro", value == "psa")
         eval(answer(Evidence.CANCRO_PSA, "baixo"))
     then
+        info.addUroInfo(Evidence.CANCRO_PSA);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.MEDIO);
         info.addUroInfo("O cancro é de risco médio!");
@@ -980,6 +1037,7 @@ rule "r7611"
         Hypothesis(description == "Verificar cancro - uro", value == "psa")
         eval(answer(Evidence.CANCRO_PSA, "medio"))
     then
+        info.addUroInfo(Evidence.CANCRO_PSA);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.ALTO);
         info.addUroInfo("O cancro é de risco alto!");
@@ -997,6 +1055,7 @@ rule "r7600"
         Hypothesis(description == "Verificar cancro - uro", value == "psa")
         eval(answer(Evidence.CANCRO_PSA, "alto"))
     then
+        info.addUroInfo(Evidence.CANCRO_PSA);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.AVANCADO);
         info.addUroInfo("O cancro é de risco avançado!");
@@ -1023,6 +1082,7 @@ rule "r76"
         Hypothesis(description == "Verificar cancro-uro", value == "ct2")
         eval(answer(Evidence.CANCRO_CT2, "b"))
     then
+        info.addUroInfo(Evidence.CANCRO_CT2);
         // Asserting a new hypothesis to trigger rule "r5"
         Conclusion c = new Conclusion(Conclusion.MEDIO);
         info.addUroInfo("O cancro é de risco médio!");
@@ -1040,6 +1100,7 @@ rule "r77"
                 Hypothesis(description == "Verificar cancro-uro", value == "ct2")
                 eval(answer(Evidence.CANCRO_CT2, "c"))
             then
+                info.addUroInfo(Evidence.CANCRO_CT2);
                 Conclusion c = new Conclusion(Conclusion.ALTO);
                         info.addUroInfo("O cancro é de risco Alto!");
                         info.addUroInfo("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
@@ -1051,6 +1112,7 @@ rule "r78"
                 Hypothesis(description == "Verificar cancro-uro", value == "ct2")
                 eval(answer(Evidence.CANCRO_CT2, "d"))
             then
+                info.addUroInfo(Evidence.CANCRO_CT2);
                 Conclusion c = new Conclusion(Conclusion.AVANCADO);
                         info.addUroInfo("O cancro é de risco avançado!");
                                         info.addUroInfo("Dado o risco, devem ser sugeridos os seguintes tratamentos: (lista de tratamentos!)");
@@ -1069,6 +1131,7 @@ rule "r26"
         Hypothesis(description == "Doença", value == "Presença de doença")
         eval(answer(Evidence.EXPECTATIVA_UTENTE, "nao"))
     then
+        info.addUroInfo(Evidence.EXPECTATIVA_UTENTE);
         Conclusion c = new Conclusion(Conclusion.VIGILANCIA_ATIVA);
                 info.addUroInfo("O tratamento não prolonga vida do paciente!");
                                 info.addUroInfo("Devido a tal, este deve permancer em vigilância ativa!");
@@ -1081,6 +1144,7 @@ rule "r27"
         Hypothesis(description == "Doença", value == "Presença de doença")
         eval(answer(Evidence.UROTAC_RESULT, "cancro"))
     then
+        info.addUroInfo(Evidence.UROTAC_RESULT);
         Hypothesis h = new Hypothesis("Analisar paciente expetativa - uro", "expetativa-uro");
                         info.addUroInfo("O urotac revela a presença de cancro na próstata!");
                         insert(h);
@@ -1094,6 +1158,7 @@ rule "r28"
         Conclusion(description == Conclusion.CANCRO_PROSTATA)
         eval(answer(Evidence.EXPECTATIVA_UTENTE, "nao"))
     then
+        info.addUroInfo(Evidence.EXPECTATIVA_UTENTE);
         Conclusion c = new Conclusion(Conclusion.VIGILANCIA_ATIVA);
                         info.addUroInfo("O tratamento não fornece expetativa de vida superior a 10 anos!");
 
@@ -1106,6 +1171,7 @@ rule "r29"
         Hypothesis(description == "Analisar paciente expetativa - uro", value == "expetativa-uro")
         eval(answer(Evidence.EXPECTATIVA_UTENTE, "sim"))
     then
+        info.addUroInfo(Evidence.EXPECTATIVA_UTENTE);
         Hypothesis h = new Hypothesis("Analisar paciente", "idade");
                         info.addUroInfo("O tratamento  fornece expetativa de vida superior a 10 anos!");
 
