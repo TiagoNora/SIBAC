@@ -1,0 +1,500 @@
+Paciente 1:
+Nome->Paula Mendes
+Idade->64
+CondicaoFisica->9
+
+Paciente 2:
+Nome->Paula Mendes
+Idade->47
+CondicaoFisica->32
+
+Paciente 3:
+Nome->Paula Mendes
+Idade->42
+CondicaoFisica->68
+
+Paciente 4:
+Nome->Paula Mendes
+Idade->80
+CondicaoFisica->34
+
+Paciente 5:
+Nome->Ana Silva
+Idade->32
+CondicaoFisica->95
+
+Paciente 6:
+Nome->Pedro Fernandes
+Idade->30
+CondicaoFisica->85
+
+Paciente 7:
+Nome->Maria Costa
+Idade->50
+CondicaoFisica->25
+
+Paciente 8:
+Nome->Rita Santos
+Idade->2
+CondicaoFisica->86
+
+Paciente 9:
+Nome->Maria Costa
+Idade->79
+CondicaoFisica->76
+
+Paciente 10:
+Nome->João Pereira
+Idade->4
+CondicaoFisica->5
+
+Paciente 11:
+Nome->Paula Mendes
+Idade->22
+CondicaoFisica->30
+
+Paciente 12:
+Nome->Ana Silva
+Idade->17
+CondicaoFisica->65
+
+Paciente 13:
+Nome->Paula Mendes
+Idade->30
+CondicaoFisica->63
+
+Paciente 14:
+Nome->Paula Mendes
+Idade->3
+CondicaoFisica->63
+
+Paciente 15:
+Nome->Bruno Oliveira
+Idade->42
+CondicaoFisica->22
+
+Paciente 16:
+Nome->Bruno Oliveira
+Idade->25
+CondicaoFisica->85
+
+Paciente 17:
+Nome->Inês Rocha
+Idade->57
+CondicaoFisica->33
+
+Paciente 18:
+Nome->Rita Santos
+Idade->23
+CondicaoFisica->13
+
+Paciente 19:
+Nome->Pedro Fernandes
+Idade->26
+CondicaoFisica->61
+
+Paciente 20:
+Nome->Rita Santos
+Idade->74
+CondicaoFisica->72
+
+Paciente 21:
+Nome->Ana Silva
+Idade->38
+CondicaoFisica->66
+
+Paciente 22:
+Nome->Maria Costa
+Idade->71
+CondicaoFisica->84
+
+Paciente 23:
+Nome->Bruno Oliveira
+Idade->64
+CondicaoFisica->33
+
+Paciente 24:
+Nome->Inês Rocha
+Idade->2
+CondicaoFisica->96
+
+Paciente 25:
+Nome->Ana Silva
+Idade->27
+CondicaoFisica->91
+
+Paciente 26:
+Nome->Rita Santos
+Idade->18
+CondicaoFisica->38
+
+Paciente 27:
+Nome->Marco Horácio
+Idade->66
+CondicaoFisica->58
+
+Paciente 28:
+Nome->Pedro Fernandes
+Idade->75
+CondicaoFisica->15
+
+Paciente 29:
+Nome->Inês Rocha
+Idade->2
+CondicaoFisica->8
+
+Paciente 30:
+Nome->Carlos Sousa
+Idade->8
+CondicaoFisica->89
+
+Paciente 31:
+Nome->Ana Silva
+Idade->53
+CondicaoFisica->73
+
+Paciente 32:
+Nome->Bruno Oliveira
+Idade->26
+CondicaoFisica->43
+
+Paciente 33:
+Nome->Bruno Oliveira
+Idade->38
+CondicaoFisica->6
+
+Paciente 34:
+Nome->Bruno Oliveira
+Idade->9
+CondicaoFisica->77
+
+Paciente 35:
+Nome->Paula Mendes
+Idade->41
+CondicaoFisica->65
+
+Paciente 36:
+Nome->Inês Rocha
+Idade->73
+CondicaoFisica->30
+
+Paciente 37:
+Nome->Maria Costa
+Idade->75
+CondicaoFisica->83
+
+Paciente 38:
+Nome->Inês Rocha
+Idade->16
+CondicaoFisica->28
+
+Paciente 39:
+Nome->Carlos Sousa
+Idade->8
+CondicaoFisica->23
+
+Paciente 40:
+Nome->Ana Silva
+Idade->77
+CondicaoFisica->62
+
+Paciente 41:
+Nome->Bruno Oliveira
+Idade->60
+CondicaoFisica->55
+
+Paciente 42:
+Nome->Carlos Sousa
+Idade->47
+CondicaoFisica->57
+
+Paciente 43:
+Nome->Pedro Fernandes
+Idade->11
+CondicaoFisica->23
+
+Paciente 44:
+Nome->João Pereira
+Idade->71
+CondicaoFisica->59
+
+Paciente 45:
+Nome->Paula Mendes
+Idade->63
+CondicaoFisica->42
+
+Paciente 46:
+Nome->Ana Silva
+Idade->45
+CondicaoFisica->77
+
+Paciente 47:
+Nome->Bruno Oliveira
+Idade->1
+CondicaoFisica->89
+
+Paciente 48:
+Nome->Maria Costa
+Idade->37
+CondicaoFisica->60
+
+Paciente 49:
+Nome->Maria Costa
+Idade->39
+CondicaoFisica->7
+
+Paciente 50:
+Nome->Marco Horácio
+Idade->6
+CondicaoFisica->57
+
+Paciente 51:
+Nome->João Pereira
+Idade->9
+CondicaoFisica->2
+
+Paciente 52:
+Nome->Carlos Sousa
+Idade->16
+CondicaoFisica->95
+
+Paciente 53:
+Nome->Marco Horácio
+Idade->70
+CondicaoFisica->63
+
+Paciente 54:
+Nome->Inês Rocha
+Idade->49
+CondicaoFisica->81
+
+Paciente 55:
+Nome->Rita Santos
+Idade->17
+CondicaoFisica->73
+
+Paciente 56:
+Nome->Inês Rocha
+Idade->57
+CondicaoFisica->81
+
+Paciente 57:
+Nome->Rita Santos
+Idade->60
+CondicaoFisica->88
+
+Paciente 58:
+Nome->Rita Santos
+Idade->68
+CondicaoFisica->86
+
+Paciente 59:
+Nome->João Pereira
+Idade->64
+CondicaoFisica->62
+
+Paciente 60:
+Nome->Maria Costa
+Idade->41
+CondicaoFisica->25
+
+Paciente 61:
+Nome->Paula Mendes
+Idade->7
+CondicaoFisica->47
+
+Paciente 62:
+Nome->Marco Horácio
+Idade->33
+CondicaoFisica->84
+
+Paciente 63:
+Nome->Rita Santos
+Idade->31
+CondicaoFisica->59
+
+Paciente 64:
+Nome->João Pereira
+Idade->9
+CondicaoFisica->77
+
+Paciente 65:
+Nome->Inês Rocha
+Idade->36
+CondicaoFisica->17
+
+Paciente 66:
+Nome->João Pereira
+Idade->37
+CondicaoFisica->8
+
+Paciente 67:
+Nome->Maria Costa
+Idade->70
+CondicaoFisica->56
+
+Paciente 68:
+Nome->Inês Rocha
+Idade->67
+CondicaoFisica->55
+
+Paciente 69:
+Nome->Bruno Oliveira
+Idade->59
+CondicaoFisica->53
+
+Paciente 70:
+Nome->Marco Horácio
+Idade->41
+CondicaoFisica->100
+
+Paciente 71:
+Nome->Marco Horácio
+Idade->4
+CondicaoFisica->37
+
+Paciente 72:
+Nome->João Pereira
+Idade->38
+CondicaoFisica->75
+
+Paciente 73:
+Nome->Marco Horácio
+Idade->68
+CondicaoFisica->34
+
+Paciente 74:
+Nome->Carlos Sousa
+Idade->10
+CondicaoFisica->0
+
+Paciente 75:
+Nome->Carlos Sousa
+Idade->18
+CondicaoFisica->1
+
+Paciente 76:
+Nome->Pedro Fernandes
+Idade->60
+CondicaoFisica->13
+
+Paciente 77:
+Nome->Bruno Oliveira
+Idade->36
+CondicaoFisica->25
+
+Paciente 78:
+Nome->Rita Santos
+Idade->67
+CondicaoFisica->84
+
+Paciente 79:
+Nome->Maria Costa
+Idade->80
+CondicaoFisica->35
+
+Paciente 80:
+Nome->Carlos Sousa
+Idade->50
+CondicaoFisica->84
+
+Paciente 81:
+Nome->Paula Mendes
+Idade->9
+CondicaoFisica->67
+
+Paciente 82:
+Nome->Rita Santos
+Idade->39
+CondicaoFisica->15
+
+Paciente 83:
+Nome->Pedro Fernandes
+Idade->76
+CondicaoFisica->39
+
+Paciente 84:
+Nome->João Pereira
+Idade->53
+CondicaoFisica->55
+
+Paciente 85:
+Nome->João Pereira
+Idade->5
+CondicaoFisica->46
+
+Paciente 86:
+Nome->Marco Horácio
+Idade->17
+CondicaoFisica->7
+
+Paciente 87:
+Nome->Paula Mendes
+Idade->30
+CondicaoFisica->48
+
+Paciente 88:
+Nome->Maria Costa
+Idade->29
+CondicaoFisica->55
+
+Paciente 89:
+Nome->Marco Horácio
+Idade->27
+CondicaoFisica->67
+
+Paciente 90:
+Nome->Paula Mendes
+Idade->24
+CondicaoFisica->77
+
+Paciente 91:
+Nome->João Pereira
+Idade->41
+CondicaoFisica->91
+
+Paciente 92:
+Nome->Paula Mendes
+Idade->9
+CondicaoFisica->48
+
+Paciente 93:
+Nome->Bruno Oliveira
+Idade->3
+CondicaoFisica->89
+
+Paciente 94:
+Nome->Maria Costa
+Idade->59
+CondicaoFisica->66
+
+Paciente 95:
+Nome->Maria Costa
+Idade->57
+CondicaoFisica->72
+
+Paciente 96:
+Nome->Marco Horácio
+Idade->6
+CondicaoFisica->46
+
+Paciente 97:
+Nome->Maria Costa
+Idade->23
+CondicaoFisica->71
+
+Paciente 98:
+Nome->Inês Rocha
+Idade->16
+CondicaoFisica->82
+
+Paciente 99:
+Nome->João Pereira
+Idade->12
+CondicaoFisica->5
+
+Paciente 100:
+Nome->Bruno Oliveira
+Idade->22
+CondicaoFisica->82
+

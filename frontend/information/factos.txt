@@ -1,12 +1,21 @@
-Cisto Facts:
-Cistoscopia não revela nada!
+Patient Information:
+Name: Paula Mendes
+Age: 64
+Physical Condition: 0
 
-Uro Facts:
-Urotac não revela nada
+Cistocospia Facts:
+Cistocopia acusou algo!
+O nível de PSA é alto (>10) (sim|nao)?
+Níveis de PSA alto, Realizar tomografia!
+Foi detetado alguma anomalia na tomografia (sim|nao)?
+Tomografia acusa algo! É necessário realizar uma biopsia!
+Foi detatado alguma anomalia na biopsia (sim|nao)?
+Biopsia revela a presença de cancro de próstata!
+Se o tratamento for realizado a expectativa do utente aumenta em 10 anos (sim|nao)?
+O tratamento fornece uma expetativa de pelo menos 10 anos!
+Paciente não está apto!
+ O mesmo deve ser submetido a tratamentos paleativos!
 
-Eco Facts:
-Uma ecografia deve ser realizada!
-A ecografia revela a presença de algo!
-Ecografia indica a presença de cancro!
-O tratamento não fornece uma expetativa de vida desejável!
-O paciente não deve avançar com tratamento. Deve ser colocado em vigilância ativa!
+UroTac Facts:
+
+EcoGrafia Facts:

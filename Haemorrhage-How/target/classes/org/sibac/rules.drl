@@ -63,6 +63,7 @@ rule "r2"
     then
         Hypothesis h = new Hypothesis("Realizar exame", "Tomografia");
         insert(h);
+        info.addCistoInfo(Evidence.CISTOSCOPIA_PSA);
         info.addCistoInfo("Níveis de PSA alto, Realizar tomografia!");
 end
 
@@ -74,6 +75,7 @@ rule "r3"
     then
         Hypothesis h = new Hypothesis("Realizar exame", "Biopsia");
         insert(h);
+        info.addCistoInfo(Evidence.CISTOSCOPIA_TOMOGRAFIA);
         info.addCistoInfo("Tomografia acusa algo! É necessário realizar uma biopsia!");
 end
 
@@ -85,6 +87,7 @@ rule "r4"
     then
         Hypothesis h = new Hypothesis("Analisar paciente expetativa", "expetativa");
         insert(h);
+        info.addCistoInfo(Evidence.CISTOSCOPIA_BIOPSIA);
         info.addCistoInfo("Biopsia revela a presença de cancro de próstata!");
         // Trigger rule 25
         Hypothesis h1 = new Hypothesis("Analisar paciente", "idade");
@@ -97,6 +100,7 @@ rule "r25"
         Hypothesis(description == "Analisar paciente expetativa", value == "expetativa")
         eval(answer(Evidence.EXPECTATIVA_UTENTE, "sim"))
     then
+    info.addCistoInfo(Evidence.EXPECTATIVA_UTENTE);
     info.addCistoInfo("O tratamento fornece uma expetativa de pelo menos 10 anos!");
         Hypothesis h = new Hypothesis("Analisar paciente", "idade");
         insert(h);
@@ -124,8 +128,8 @@ rule "r31"
         Hypothesis(description == "Prosseguir tratamento", value == "apto")
         eval(answer(Evidence.CANCRO_RISCO, "psa"))
     then
-    info.addCistoInfo("Paciente está apto para tratamento!");
-                info.addCistoInfo("O psa é usado como critério para avaliar o risco!");
+                info.addCistoInfo("Paciente está apto para tratamento!\nO psa é usado como critério para avaliar o risco!");
+                //info.addCistoInfo("O psa é usado como critério para avaliar o risco!");
 
         Hypothesis h = new Hypothesis("Verificar cancro", "psa");
         insert(h);
@@ -137,9 +141,9 @@ rule "r39"
         Hypothesis(description == "Prosseguir tratamento", value == "nao apto")
 
     then
-    info.addCistoInfo("Paciente não está apto!");
+    info.addCistoInfo("Paciente não está apto!\n O mesmo deve ser submetido a tratamentos paleativos!");
         Conclusion c = new Conclusion(Conclusion.PALEATIVO);
-        info.addCistoInfo("Paciente é submeitod a tratamentos paleativos");
+        //info.addCistoInfo("Paciente é submetido a tratamentos paleativos");
         insert(c);
 end
 
@@ -151,8 +155,7 @@ rule "r32"
             eval(answer(Evidence.CANCRO_RISCO, "gg"))
         then
             Hypothesis h = new Hypothesis("Verificar cancro", "gg");
-            info.addCistoInfo("O paciente está apto para ser submetido a um tratamento!");
-
+            info.addCistoInfo("Dada a idade e condição do paciente, o mesmo encontra-se apto para ser submetido a um tratamento!");
             info.addCistoInfo("O gg é usado para avaliar o risco associado ao cancro!");
 
             insert(h);

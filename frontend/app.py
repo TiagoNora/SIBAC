@@ -1,63 +1,95 @@
 import streamlit as st
-from collections import defaultdict
 import networkx as nx
-from pyvis.network import Network
-import streamlit.components.v1 as components
+import matplotlib.pyplot as plt
+import io
 
-# Function to read and parse the factos.txt file
-def parse_factos(file_path):
+# Function to read and parse the file
+def parse_factos_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         lines = file.readlines()
-
-    fact_dict = defaultdict(list)
-    current_section = None
-
+    
+    exams = {}
+    current_exam = None
+    current_facts = []
+    
     for line in lines:
-        line = line.strip()
-        if line.endswith("Facts:"):
-            current_section = line.replace(":", "")
-        elif line and current_section:
-            fact_dict[current_section].append(line)
+        stripped_line = line.strip()
+        if not stripped_line:
+            continue
+        
+        if ' Facts:' in stripped_line:
+            if current_exam is not None:
+                exams[current_exam] = current_facts
+            current_exam = stripped_line.replace(' Facts:', '')
+            current_facts = []
+        else:
+            current_facts.append(stripped_line)
+    
+    if current_exam is not None:
+        exams[current_exam] = current_facts
 
-    return fact_dict
+    return exams
 
-# Function to create a network graph from facts
-def create_graph(facts):
-    G = nx.Graph()
-    for section, facts_list in facts.items():
-        section_node = f"{section}"
-        G.add_node(section_node, label=section, color='lightblue')
-        previous_fact_node = None
-        for fact in facts_list:
-            fact_node = f"{section}: {fact}"
-            G.add_node(fact_node, label=fact, color='lightgreen')
-            if previous_fact_node is None:
-                G.add_edge(section_node, fact_node)
-            else:
-                G.add_edge(previous_fact_node, fact_node)
-            previous_fact_node = fact_node
+# Function to create a knowledge graph
+def create_knowledge_graph(exam_data):
+    G = nx.DiGraph()
+
+    for exam, facts in exam_data.items():
+        previous_node = exam
+        for fact in facts:
+            # Add node for each fact
+            G.add_node(fact)
+            # Add edge from previous node to current fact
+            G.add_edge(previous_node, fact)
+            # Update previous node
+            previous_node = fact
+
     return G
 
-# Function to display the graph using pyvis
-def display_graph(G):
-    net = Network(height='800px', width='100%', bgcolor='#222222', font_color='white')
-    net.from_nx(G)
-    net.save_graph('factos_graph.html')
-    with open('factos_graph.html', 'r', encoding='utf-8') as f:
-        html_content = f.read()
-    components.html(html_content, height=800)
+# Streamlit app
+st.title("Exam Knowledge Graph")
 
 # Path to the factos.txt file
-file_path = "information/factos.txt"
+factos_file_path = 'information/factos.txt'
 
-# Parse the factos file
-fact_dict = parse_factos(file_path)
+# Parse the file
+exams_data = parse_factos_file(factos_file_path)
 
-# Create a network graph from the parsed facts
-graph = create_graph(fact_dict)
+# Sidebar for selecting the exam and displaying patient information
+selected_exam = st.sidebar.selectbox("Select Exam", list(exams_data.keys()))
 
-# Streamlit app title
-st.title("Medical Facts Node Structure")
+# Display patient information
+st.sidebar.subheader("Patient Information")
+st.sidebar.markdown("Name: Paula Mendes")
+st.sidebar.markdown("Age: 64")
+st.sidebar.markdown("Physical Condition: 0")
 
-# Display the network graph
-display_graph(graph)
+# Create knowledge graph for the selected exam
+graph = create_knowledge_graph({selected_exam: exams_data[selected_exam]})
+
+# Visualize knowledge graph
+st.header(f"Knowledge Graph for {selected_exam}")
+
+# Draw the graph with improved layout
+pos = nx.spring_layout(graph, k=2, iterations=50)  # Adjust k and iterations for better spacing
+fig, ax = plt.subplots(figsize=(12, 8))  # Increase the figure size
+nx.draw(graph, pos, ax=ax, with_labels=True, node_size=1500, node_color="skyblue", font_size=12, arrowsize=20)
+plt.title(selected_exam)
+plt.tight_layout()
+
+# Convert matplotlib figure to an image
+buf = io.BytesIO()
+plt.savefig(buf, format='png')
+plt.close(fig)
+buf.seek(0)
+
+# Display the image in Streamlit
+st.image(buf)
+
+# Display questions and answers in an interesting way
+st.header(f"Questions and Answers for {selected_exam}")
+for fact in exams_data[selected_exam]:
+    if '?' in fact:
+        st.markdown(f"**Question:** {fact}")
+    else:
+        st.markdown(f"*Answer:* {fact}")
