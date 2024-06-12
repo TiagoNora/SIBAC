@@ -1,15 +1,13 @@
 import streamlit as st
 import networkx as nx
-import matplotlib.pyplot as plt
-import io
-
+from pyvis.network import Network
 
 
 # Function to read and parse the file
 def parse_factos_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         lines = file.readlines()
-    
+
     exams = {}
     current_exam = None
     current_facts = []
@@ -17,27 +15,27 @@ def parse_factos_file(file_path):
     patient_name = ''
     patient_age = ''
     patient_condition = ''
-    
+
     for line in lines:
         stripped_line = line.strip()
         if not stripped_line:
             continue
-        
+
         if ' Facts:' in stripped_line:
             if current_exam is not None:
                 exams[current_exam] = current_facts
             current_exam = stripped_line.replace(' Facts:', '')
             current_facts = []
         elif 'Name: ' in stripped_line:
-                patient_name = stripped_line.replace('Name: ', '')
+            patient_name = stripped_line.replace('Name: ', '')
         elif 'Age: ' in stripped_line:
-                patient_age = stripped_line.replace('Age: ', '')
+            patient_age = stripped_line.replace('Age: ', '')
         elif 'Physical Condition: ' in stripped_line:
-                patient_condition = stripped_line.replace('Physical Condition: ', '')
-            
+            patient_condition = stripped_line.replace('Physical Condition: ', '')
+
         else:
             current_facts.append(stripped_line)
-    
+
     if current_exam is not None:
         exams[current_exam] = current_facts
 
@@ -53,12 +51,8 @@ def create_knowledge_graph(exam_data):
             # Add node for each fact
             G.add_node(fact)
             # Add edge from previous node to current fact
-            G.add_edge(previous_node, fact)
-            # Update previous node
+            G.add_edge(previous_node, fact, label=f"{i + 1}")
             previous_node = fact
-            # Mark the last fact as a conclusion node
-            if i == len(facts) - 1:
-                G.nodes[previous_node]['conclusion'] = True
 
     return G
 
@@ -86,26 +80,14 @@ graph = create_knowledge_graph({selected_exam: exams_data[selected_exam]})
 # Visualize knowledge graph
 st.header(f"Knowledge Graph for {selected_exam}")
 
-# Draw the graph with improved layout
-pos = nx.spring_layout(graph, k=0.5, iterations=100, seed=42)
-fig, ax = plt.subplots(figsize=(12, 8))  # Increase the figure size
-nx.draw(graph, pos, ax=ax, with_labels=True, node_size=1500, node_color="skyblue", font_size=12, arrowsize=20)
-plt.title(selected_exam)
-plt.tight_layout()
+# Draw the graph with interactive nodes
+net = Network(height="600px", width="100%", notebook=True)
+net.from_nx(graph)
 
-# Convert matplotlib figure to an image
-buf = io.BytesIO()
-plt.savefig(buf, format='png')
-plt.close(fig)
-buf.seek(0)
+# Save the graph as HTML file
+net.show("graph.html")
 
-# Display the image in Streamlit
-st.image(buf)
-
-# Display questions and answers in an interesting way
-st.header(f"Questions and Answers for {selected_exam}")
-for fact in exams_data[selected_exam]:
-    if '?' in fact:
-        st.markdown(f"**Question:** {fact}")
-    else:
-        st.markdown(f"*Answer:* {fact}")
+# Display the graph content using HTML component
+st.subheader("Graph Content")
+html_content = open("graph.html", "r").read()
+st.components.v1.html(html_content, width=800, height=600, scrolling=True)
