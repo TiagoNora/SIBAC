@@ -1,7 +1,7 @@
 Patient Information:
 Name: Paula Mendes
 Age: 64
-Physical Condition: 0
+Physical Condition: 9
 
 Cistocospia Facts:
 Cistocopia acusou algo!

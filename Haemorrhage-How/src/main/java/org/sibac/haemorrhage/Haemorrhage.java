@@ -198,7 +198,8 @@ public class Haemorrhage {
                     }
                 } else if (line.startsWith("CondicaoFisica->")) {
                     //System.out.println(line);
-                    String conditionStr = line.substring(17).trim();
+                    
+                    String conditionStr = line.substring(16).trim();
                     if (!conditionStr.isEmpty()) {
                         physicalCondition = Integer.parseInt(conditionStr);
                     }
